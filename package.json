@@ -2,7 +2,12 @@
   "name": "insyn-vs-theme",
   "displayName": "InsynVsTheme",
   "description": "A dark VS Code theme with rich blue highlighting.",
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/insanmiy/InsynVsTheme.git"
+  },
   "engines": {
     "vscode": "^1.116.0"
   },
