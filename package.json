@@ -1,8 +1,8 @@
 {
-  "name": "IB",
-  "displayName": "InsanmiyBlue",
-  "description": "This makes vscode black with blue highlighting",
-  "version": "0.0.1",
+  "name": "insyn-vs-theme",
+  "displayName": "InsynVsTheme",
+  "description": "A dark VS Code theme with rich blue highlighting.",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.116.0"
   },
@@ -12,9 +12,9 @@
   "contributes": {
     "themes": [
       {
-        "label": "InsanmiyBlue",
+        "label": "InsynVsTheme",
         "uiTheme": "vs-dark",
-        "path": "./themes/InsanmiyBlue-color-theme.json"
+        "path": "./themes/InsynVsTheme-color-theme.json"
       }
     ],
     "languages": [

@@ -1,4 +1,4 @@
-# IB README
+# InsynVsTheme
 
 ## Working with Markdown
 
