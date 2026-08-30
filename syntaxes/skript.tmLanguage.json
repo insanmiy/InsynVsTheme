@@ -1,0 +1,118 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Skript",
+	"scopeName": "source.skript",
+	"fileTypes": ["sk"],
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#events"
+		},
+		{
+			"include": "#commands"
+		},
+		{
+			"include": "#conditionals"
+		},
+		{
+			"include": "#loops"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#effects"
+		},
+		{
+			"include": "#expressions"
+		}
+	],
+	"repository": {
+		"comments": {
+			"name": "comment.line.number-sign.skript",
+			"begin": "#",
+			"end": "$"
+		},
+		"events": {
+			"name": "keyword.control.event.skript",
+			"match": "^\\s*on\\s+[a-zA-Z_][a-zA-Z0-9_]*(?:\\s+[a-zA-Z0-9_]+)*\\s*:.*$",
+			"captures": {
+				"1": {
+					"name": "keyword.control.event.skript"
+				}
+			}
+		},
+		"commands": {
+			"name": "entity.name.function.command.skript",
+			"match": "^\\s*command\\s+/[a-zA-Z0-9_]+(?:\\s+<[a-zA-Z0-9_]+(?:=[^>]+)?>)*\\s*:.*$",
+			"captures": {
+				"1": {
+					"name": "entity.name.function.command.skript"
+				}
+			}
+		},
+		"conditionals": {
+			"name": "keyword.control.conditional.skript",
+			"match": "\\b(if|else if|else)\\b"
+		},
+		"loops": {
+			"name": "keyword.control.loop.skript",
+			"match": "\\b(loop|while)\\b"
+		},
+		"variables": {
+			"name": "variable.other.skript",
+			"patterns": [
+				{
+					"name": "variable.other.global.skript",
+					"match": "\\{[a-zA-Z_][a-zA-Z0-9_]*\\}"
+				},
+				{
+					"name": "variable.other.local.skript",
+					"match": "\\{_[a-zA-Z_][a-zA-Z0-9_]*\\}"
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.skript",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.skript",
+					"match": "\\\\."
+				},
+				{
+					"name": "variable.interpolation.skript",
+					"match": "%[^%]*%"
+				}
+			]
+		},
+		"numbers": {
+			"name": "constant.numeric.skript",
+			"match": "\\b\\d+(\\.\\d+)?\\b"
+		},
+		"keywords": {
+			"name": "keyword.other.skript",
+			"match": "\\b(trigger|cancel event|set|remove|add|give|take|delete|create|broadcast|message|send|wait|stop|pause|continue|break|return|function|options|import|alias|true|false|null)\\b"
+		},
+		"effects": {
+			"name": "support.function.effect.skript",
+			"match": "\\b(create explosion|message|broadcast|send|set|remove|add|give|take|delete|kill|heal|damage|teleport|spawn|drop|clear|close|open|execute|run|trigger|cancel|stop|pause|wait)\\b"
+		},
+		"expressions": {
+			"name": "support.variable.expression.skript",
+			"match": "\\b(player|block|entity|location|world|item|inventory|slot|command|argument|loop-block|loop-value|loop-index|loop-entity|loop-player)\\b"
+		}
+	}
+}
