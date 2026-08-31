@@ -1,8 +1,8 @@
 {
   "name": "insyn-vs-theme",
-  "displayName": "InsynVsTheme.0.0.7",
+  "displayName": "InsynVsTheme.0.1.0",
   "description": "A dark VS Code theme with blue highlighting.",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "publisher": "insanmiy",
   "author": "Insanmiy",
   "license": "SEE LICENSE IN LICENSE",
@@ -38,7 +38,7 @@
   ],
   "main": "./extension.js",
   "activationEvents": [
-    "onStartupFinished"
+    "*"
   ],
   "contributes": {
     "themes": [
