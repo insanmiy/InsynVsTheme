@@ -1,18 +1,44 @@
 {
   "name": "insyn-vs-theme",
-  "displayName": "InsynVsTheme",
-  "description": "A dark VS Code theme with rich blue highlighting.",
-  "version": "0.0.3",
-  "license": "MIT",
+  "displayName": "InsynVsTheme.0.0.7",
+  "description": "A dark VS Code theme with blue highlighting.",
+  "version": "0.0.7",
+  "publisher": "insanmiy",
+  "author": "Insanmiy",
+  "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
     "url": "https://github.com/insanmiy/InsynVsTheme.git"
   },
+  "homepage": "https://github.com/insanmiy/InsynVsTheme#readme",
+  "bugs": {
+    "url": "https://github.com/insanmiy/InsynVsTheme/issues"
+  },
   "engines": {
-    "vscode": "^1.116.0"
+    "vscode": "^1.80.0"
   },
   "categories": [
-    "Themes"
+    "Themes",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "blue",
+    "dark",
+    "navy",
+    "theme",
+    "skript"
+  ],
+  "galleryBanner": {
+    "color": "#030812",
+    "theme": "dark"
+  },
+  "pricing": "Free",
+  "extensionKind": [
+    "ui"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
   ],
   "contributes": {
     "themes": [
