@@ -8,6 +8,9 @@
     "_archive": {
       "iconPath": "./icons/archive.svg"
     },
+    "_astro": {
+      "iconPath": "./icons/astro.svg"
+    },
     "_audio": {
       "iconPath": "./icons/audio.svg"
     },
@@ -22,6 +25,9 @@
     },
     "_certificate": {
       "iconPath": "./icons/certificate.svg"
+    },
+    "_cjs": {
+      "iconPath": "./icons/cjs.svg"
     },
     "_clojure": {
       "iconPath": "./icons/clojure.svg"
@@ -44,11 +50,17 @@
     "_csv": {
       "iconPath": "./icons/csv.svg"
     },
+    "_cts": {
+      "iconPath": "./icons/cts.svg"
+    },
     "_dart": {
       "iconPath": "./icons/dart.svg"
     },
     "_database": {
       "iconPath": "./icons/database.svg"
+    },
+    "_declaration": {
+      "iconPath": "./icons/declaration.svg"
     },
     "_deno": {
       "iconPath": "./icons/deno.svg"
@@ -58,6 +70,9 @@
     },
     "_docker": {
       "iconPath": "./icons/docker.svg"
+    },
+    "_ejs": {
+      "iconPath": "./icons/ejs.svg"
     },
     "_elixir": {
       "iconPath": "./icons/elixir.svg"
@@ -194,6 +209,9 @@
     "_groovy": {
       "iconPath": "./icons/groovy.svg"
     },
+    "_handlebars": {
+      "iconPath": "./icons/handlebars.svg"
+    },
     "_haskell": {
       "iconPath": "./icons/haskell.svg"
     },
@@ -203,6 +221,9 @@
     "_image": {
       "iconPath": "./icons/image.svg"
     },
+    "_ini": {
+      "iconPath": "./icons/ini.svg"
+    },
     "_java": {
       "iconPath": "./icons/java.svg"
     },
@@ -211,6 +232,12 @@
     },
     "_json": {
       "iconPath": "./icons/json.svg"
+    },
+    "_jsonc": {
+      "iconPath": "./icons/jsonc.svg"
+    },
+    "_jsx": {
+      "iconPath": "./icons/jsx.svg"
     },
     "_julia": {
       "iconPath": "./icons/julia.svg"
@@ -227,6 +254,9 @@
     "_license": {
       "iconPath": "./icons/license.svg"
     },
+    "_liquid": {
+      "iconPath": "./icons/liquid.svg"
+    },
     "_lock": {
       "iconPath": "./icons/lock.svg"
     },
@@ -242,6 +272,15 @@
     "_markdown": {
       "iconPath": "./icons/markdown.svg"
     },
+    "_mdx": {
+      "iconPath": "./icons/mdx.svg"
+    },
+    "_mjs": {
+      "iconPath": "./icons/mjs.svg"
+    },
+    "_mts": {
+      "iconPath": "./icons/mts.svg"
+    },
     "_node": {
       "iconPath": "./icons/node.svg"
     },
@@ -250,6 +289,9 @@
     },
     "_npm": {
       "iconPath": "./icons/npm.svg"
+    },
+    "_nunjucks": {
+      "iconPath": "./icons/nunjucks.svg"
     },
     "_ocaml": {
       "iconPath": "./icons/ocaml.svg"
@@ -278,6 +320,9 @@
     "_prettier": {
       "iconPath": "./icons/prettier.svg"
     },
+    "_prisma": {
+      "iconPath": "./icons/prisma.svg"
+    },
     "_protobuf": {
       "iconPath": "./icons/protobuf.svg"
     },
@@ -286,6 +331,9 @@
     },
     "_r": {
       "iconPath": "./icons/r.svg"
+    },
+    "_razor": {
+      "iconPath": "./icons/razor.svg"
     },
     "_react": {
       "iconPath": "./icons/react.svg"
@@ -314,6 +362,9 @@
     "_solidity": {
       "iconPath": "./icons/solidity.svg"
     },
+    "_sourcemap": {
+      "iconPath": "./icons/sourcemap.svg"
+    },
     "_spreadsheet": {
       "iconPath": "./icons/spreadsheet.svg"
     },
@@ -340,6 +391,15 @@
     },
     "_text": {
       "iconPath": "./icons/text.svg"
+    },
+    "_toml": {
+      "iconPath": "./icons/toml.svg"
+    },
+    "_tsx": {
+      "iconPath": "./icons/tsx.svg"
+    },
+    "_twig": {
+      "iconPath": "./icons/twig.svg"
     },
     "_typescript": {
       "iconPath": "./icons/typescript.svg"
@@ -395,25 +455,28 @@
     "styl": "_sass",
     "stylus": "_sass",
     "js": "_javascript",
-    "mjs": "_javascript",
-    "cjs": "_javascript",
     "es6": "_javascript",
     "pac": "_javascript",
+    "mjs": "_mjs",
+    "cjs": "_cjs",
+    "jsx": "_jsx",
     "ts": "_typescript",
-    "mts": "_typescript",
-    "cts": "_typescript",
-    "jsx": "_react",
-    "tsx": "_react",
+    "mts": "_mts",
+    "cts": "_cts",
+    "tsx": "_tsx",
+    "d.ts": "_declaration",
+    "d.mts": "_declaration",
+    "d.cts": "_declaration",
     "vue": "_vue",
     "svelte": "_svelte",
     "component.html": "_angular",
     "component.ts": "_angular",
     "json": "_json",
-    "jsonc": "_json",
     "json5": "_json",
     "jsonl": "_json",
     "ndjson": "_json",
     "webmanifest": "_json",
+    "jsonc": "_jsonc",
     "yaml": "_yaml",
     "yml": "_yaml",
     "xml": "_xml",
@@ -424,9 +487,20 @@
     "svg": "_xml",
     "md": "_markdown",
     "markdown": "_markdown",
-    "mdx": "_markdown",
     "mdown": "_markdown",
     "mkd": "_markdown",
+    "mdx": "_mdx",
+    "astro": "_astro",
+    "prisma": "_prisma",
+    "hbs": "_handlebars",
+    "handlebars": "_handlebars",
+    "njk": "_nunjucks",
+    "nunjucks": "_nunjucks",
+    "twig": "_twig",
+    "liquid": "_liquid",
+    "cshtml": "_razor",
+    "razor": "_razor",
+    "ejs": "_ejs",
     "py": "_python",
     "pyw": "_python",
     "pyi": "_python",
@@ -526,17 +600,26 @@
     "containerfile": "_docker",
     "ipynb": "_notebook",
     "spec.js": "_test",
+    "spec.mjs": "_test",
     "spec.ts": "_test",
+    "spec.mts": "_test",
+    "spec.jsx": "_test",
+    "spec.tsx": "_test",
     "test.js": "_test",
+    "test.mjs": "_test",
     "test.ts": "_test",
-    "ini": "_config",
+    "test.mts": "_test",
+    "test.jsx": "_test",
+    "test.tsx": "_test",
     "cfg": "_config",
     "conf": "_config",
     "config": "_config",
-    "toml": "_config",
     "properties": "_config",
     "editorconfig": "_config",
     "desktop": "_config",
+    "ini": "_ini",
+    "toml": "_toml",
+    "map": "_sourcemap",
     "env": "_env",
     "png": "_image",
     "jpg": "_image",
@@ -734,15 +817,22 @@
     "scss": "_sass",
     "less": "_sass",
     "javascript": "_javascript",
-    "javascriptreact": "_react",
+    "javascriptreact": "_jsx",
     "typescript": "_typescript",
-    "typescriptreact": "_react",
+    "typescriptreact": "_tsx",
     "json": "_json",
-    "jsonc": "_json",
+    "jsonc": "_jsonc",
     "yaml": "_yaml",
     "xml": "_xml",
     "markdown": "_markdown",
-    "mdx": "_markdown",
+    "mdx": "_mdx",
+    "astro": "_astro",
+    "prisma": "_prisma",
+    "handlebars": "_html",
+    "nunjucks": "_nunjucks",
+    "twig": "_twig",
+    "liquid": "_liquid",
+    "razor": "_html",
     "python": "_python",
     "java": "_java",
     "kotlin": "_kotlin",
@@ -788,8 +878,6 @@
     "log": "_log",
     "vue": "_vue",
     "svelte": "_svelte",
-    "razor": "_html",
-    "handlebars": "_html",
     "pug": "_html"
   },
   "folderNames": {

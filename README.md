@@ -9,8 +9,8 @@ InsynVsTheme is my navy Visual Studio Code setup. It comes in the original blue 
 - The original theme uses `#1035DE` for its highlights and icons.
 - The colorful theme gives the syntax, buttons, status colors, and file icons their own colors.
 - Both versions use the same `#030812` background.
-- 124 custom file and folder icon shapes in both icon sets.
-- Icons for 260 extensions, 84 special filenames, 62 language IDs, and 48 common folder names.
+- 144 custom file and folder icon shapes in both icon sets.
+- Icons for 283 extensions, 84 special filenames, 67 language IDs, and 48 common folder names.
 
 ## Enable the theme
 
