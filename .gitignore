@@ -1,0 +1,10 @@
+*.vsix
+*.bat
+__pycache__/
+*.pyc
+scripts/
+program.md
+desktop.ini
+Thumbs.db
+.DS_Store
+vsc-extension-quickstart.md

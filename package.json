@@ -1,0 +1,87 @@
+{
+  "name": "insyn-vs-theme",
+  "displayName": "InsynVsTheme",
+  "description": "A dark navy VS Code theme with blue and colorful variants.",
+  "version": "2.0.0",
+  "publisher": "insanmiy",
+  "author": "Insanmiy",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/insanmiy/InsynVsTheme.git"
+  },
+  "homepage": "https://github.com/insanmiy/InsynVsTheme#readme",
+  "bugs": {
+    "url": "https://github.com/insanmiy/InsynVsTheme/issues"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Themes",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "blue",
+    "colorful",
+    "dark",
+    "file icons",
+    "navy",
+    "theme",
+    "skript"
+  ],
+  "galleryBanner": {
+    "color": "#030812",
+    "theme": "dark"
+  },
+  "icon": "images/icon.png",
+  "pricing": "Free",
+  "extensionKind": [
+    "ui"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "InsynVsTheme",
+        "uiTheme": "vs-dark",
+        "path": "./themes/InsynVsTheme-color-theme.json"
+      },
+      {
+        "label": "InsynVsTheme Colorful",
+        "uiTheme": "vs-dark",
+        "path": "./themes/InsynVsTheme-colorful-color-theme.json"
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "insyn-file-icons",
+        "label": "Insyn File Icons",
+        "path": "./fileicons/insyn-file-icon-theme.json"
+      },
+      {
+        "id": "insyn-colorful-file-icons",
+        "label": "Insyn Colorful Icons",
+        "path": "./fileicons/insyn-colorful-file-icon-theme.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "skript",
+        "aliases": ["Skript", "skript"],
+        "extensions": [".sk"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "skript",
+        "scopeName": "source.skript",
+        "path": "./syntaxes/skript.tmLanguage.json"
+      }
+    ]
+  }
+}
