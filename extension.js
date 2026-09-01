@@ -1,7 +1,8 @@
 const vscode = require("vscode");
 
 const THEME_NAME = "InsynVsTheme";
-const UPDATE_DELAY_MS = 40;
+const UPDATE_DELAY_MS = 25;
+const MAX_DOCUMENT_CHARS = 2_000_000_000;
 const HIGHLIGHTED_COMMENT_LINE = /^[\t ]*(?:\/\/\.|#\.)[^\r\n]*/gm;
 
 function activate(context) {
@@ -20,8 +21,13 @@ function activate(context) {
       return;
     }
 
-    const ranges = [];
     const documentText = editor.document.getText();
+    if (documentText.length > MAX_DOCUMENT_CHARS) {
+      editor.setDecorations(whiteComment, []);
+      return;
+    }
+
+    const ranges = [];
     HIGHLIGHTED_COMMENT_LINE.lastIndex = 0;
 
     for (const match of documentText.matchAll(HIGHLIGHTED_COMMENT_LINE)) {
@@ -101,6 +107,10 @@ function activate(context) {
     { dispose: cancelPendingUpdates },
     vscode.window.onDidChangeVisibleTextEditors(updateVisibleEditors),
     vscode.workspace.onDidChangeTextDocument((event) => {
+      if (!themeIsActive()) {
+        return;
+      }
+
       const isVisible = vscode.window.visibleTextEditors.some(
         (editor) => editor.document === event.document
       );
@@ -110,6 +120,14 @@ function activate(context) {
         } else {
           scheduleDocumentUpdate(event.document);
         }
+      }
+    }),
+    vscode.workspace.onDidCloseTextDocument((document) => {
+      const key = document.uri.toString();
+      const pendingUpdate = pendingUpdates.get(key);
+      if (pendingUpdate) {
+        clearTimeout(pendingUpdate);
+        pendingUpdates.delete(key);
       }
     }),
     vscode.workspace.onDidChangeConfiguration((event) => {

@@ -1,16 +1,42 @@
 # InsynVsTheme
 
-## Working with Markdown
+![InsynVsTheme icon](images/icon.png)
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+InsynVsTheme is my dark blue setup for VS Code. It comes with the color theme,
+a matching file-icon theme, and support for Skript files.
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+## What's included
 
-## For more information
+- A dark navy editor and interface.
+- 124 blue file and folder icons.
+- File icons for 260 extensions, 84 named files, and 48 folder names.
+- Skript highlighting and language settings.
+- White comments when a line starts with `//.` or `#.`.
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+## Set it up
 
-**Enjoy!**
+1. Open **Preferences: Color Theme** and select **InsynVsTheme**.
+2. Open **Preferences: File Icon Theme** and select **Insyn File Icons**.
+
+You can use either theme on its own if you want.
+
+## White comments
+
+Put a dot directly after `//` or `#` to make the whole comment white:
+
+```js
+//. TODO: clean this up later
+```
+
+```python
+#. Keep this value in sync with config.yml
+```
+
+## Icon sources
+
+Some of the language and tool icons use shapes from Simple Icons and Devicon.
+Details are in [fileicons/THIRD_PARTY_NOTICES.md](fileicons/THIRD_PARTY_NOTICES.md).
+
+## License
+
+See [LICENSE](LICENSE).

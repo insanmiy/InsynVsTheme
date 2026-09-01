@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img">
 <title>Kotlin</title>
-<path fill="#1035DE" d="M24 24H0V0h24L12 12Z"/>
+<path fill="#1035DE" stroke="#1035DE" stroke-width=".4" stroke-linejoin="round" d="M24 24H0V0h24L12 12Z"/>
 </svg>
