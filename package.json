@@ -1,8 +1,8 @@
 {
   "name": "insyn-vs-theme",
-  "displayName": "InsynVsTheme.0.2.3",
+  "displayName": "InsynVsTheme",
   "description": "A dark VS Code theme with blue highlighting.",
-  "version": "0.2.3",
+  "version": "2.0.0",
   "publisher": "insanmiy",
   "author": "Insanmiy",
   "license": "SEE LICENSE IN LICENSE",
@@ -46,6 +46,13 @@
         "label": "InsynVsTheme",
         "uiTheme": "vs-dark",
         "path": "./themes/InsynVsTheme-color-theme.json"
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "insyn-file-icons",
+        "label": "Insyn File Icons",
+        "path": "./fileicons/insyn-file-icon-theme.json"
       }
     ],
     "languages": [

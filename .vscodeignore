@@ -4,3 +4,8 @@
 vsc-extension-quickstart.md
 build.bat
 image.png
+program.md
+scripts/**
+verify_icons.py
+__pycache__/**
+*.pyc

@@ -1,2 +1,6 @@
 *.vsix
 *.bat
+__pycache__/
+*.pyc
+scripts/
+program.md
