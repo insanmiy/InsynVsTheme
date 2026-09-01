@@ -2,40 +2,33 @@
 
 ![InsynVsTheme icon](images/icon.png)
 
-InsynVsTheme is my dark blue setup for VS Code. It comes with the color theme,
-a matching file-icon theme, and support for Skript files.
+InsynVsTheme is a navy Visual Studio Code theme with blue accents, and blue monochrome file icon theme.
 
-## What's included
+## Features
 
-- A dark navy editor and interface.
-- 124 blue file and folder icons.
-- File icons for 260 extensions, 84 named files, and 48 folder names.
-- Skript highlighting and language settings.
-- White comments when a line starts with `//.` or `#.`.
+- Dark interface palette designed around `#030812`.
+- 124 monochrome file and folder icons using `#1035DE`.
+- Icons for 260 extensions, 84 special filenames, 62 language IDs, and 48 common folder names.
 
-## Set it up
+## Enable the theme
 
 1. Open **Preferences: Color Theme** and select **InsynVsTheme**.
 2. Open **Preferences: File Icon Theme** and select **Insyn File Icons**.
 
-You can use either theme on its own if you want.
+The color theme and file-icon theme can be selected independently.
 
-## White comments
+## Highlighted comments
 
-Put a dot directly after `//` or `#` to make the whole comment white:
+When InsynVsTheme is active, a comment line beginning with `//.` or `#.` is
+rendered in white so it stands out from ordinary comments.
 
 ```js
-//. TODO: clean this up later
+//. This comment is intentionally highlighted.
 ```
 
 ```python
-#. Keep this value in sync with config.yml
+#. This one is highlighted too.
 ```
-
-## Icon sources
-
-Some of the language and tool icons use shapes from Simple Icons and Devicon.
-Details are in [fileicons/THIRD_PARTY_NOTICES.md](fileicons/THIRD_PARTY_NOTICES.md).
 
 ## License
 
