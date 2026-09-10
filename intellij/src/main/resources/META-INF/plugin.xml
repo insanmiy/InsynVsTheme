@@ -1,0 +1,21 @@
+<idea-plugin>
+  <id>com.insanmiy.insynvstheme</id>
+  <name>Insyn Theme</name>
+  <version>2.0.2</version>
+  <vendor url="https://github.com/insanmiy">Insanmiy</vendor>
+
+  <description><![CDATA[
+    <p>A dark navy IntelliJ IDEA theme with restrained blue and colorful variants.</p>
+    <p>Both variants use the original Insyn <code>#030812</code> editor background and orange focus accent.</p>
+  ]]></description>
+
+  <idea-version since-build="233"/>
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <themeProvider id="d50b43a8-4c4c-43e7-83a0-2d2811d9a7c1"
+                   path="/themes/Insyn.theme.json"/>
+    <themeProvider id="c2a8db5a-a82f-4d3d-95c4-620ef8d7dd11"
+                   path="/themes/InsynColorful.theme.json"/>
+  </extensions>
+</idea-plugin>

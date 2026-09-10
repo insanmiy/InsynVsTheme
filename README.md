@@ -2,27 +2,25 @@
 
 ![InsynVsTheme icon](images/icon.png)
 
-InsynVsTheme is my navy Visual Studio Code setup. It comes in the original blue style and a colorful version that keeps the same dark background.
+InsynVsTheme is my navy Visual Studio Code setup.
 
-## Features
-
-- Both versions use the same `#030812` background.
-- 144 custom file and folder icon shapes in both icon sets.
-- Icons for 283 extensions, 84 special filenames, 67 language IDs, and 48 common folder names.
+An IntelliJ IDEA version is also available in [`intellij/`](intellij/).
 
 ## Enable the theme
 
-For the blue setup:
+Select the color theme (**InsynVsTheme** or **InsynVsTheme Colorful**) and the matching file icon theme (**Insyn File Icons** or **Insyn Colorful Icons**) from the Preferences menu.
 
-1. Open **Preferences: Color Theme** and select **InsynVsTheme**.
-2. Open **Preferences: File Icon Theme** and select **Insyn File Icons**.
+### IntelliJ IDEA
 
-For the colorful setup:
+Build the IntelliJ plugin with:
 
-1. Open **Preferences: Color Theme** and select **InsynVsTheme Colorful**.
-2. Open **Preferences: File Icon Theme** and select **Insyn Colorful Icons**.
+```powershell
+cd intellij
+Set-ExecutionPolicy -Scope Process Bypass
+.\build.ps1
+```
 
-The color theme and file-icon theme can be selected independently.
+Then open **Settings | Plugins**, choose **Install Plugin from Disk**, and select the ZIP from `intellij/build/distributions/`. The IntelliJ plugin supports IntelliJ IDEA 2023.3 and newer.
 
 ## Highlighted comments
 

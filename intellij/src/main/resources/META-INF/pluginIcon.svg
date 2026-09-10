@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img">
+  <title>InsynVsTheme</title>
+  <rect x="8" y="8" width="240" height="240" rx="52" fill="#030812" stroke="#1035DE" stroke-width="8"/>
+  <path d="M90 70 38 128l52 58" fill="none" stroke="#1035DE" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m166 70 52 58-52 58" fill="none" stroke="#1035DE" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="116" y="58" width="24" height="140" rx="12" fill="#1035DE"/>
+</svg>

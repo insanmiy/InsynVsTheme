@@ -9,3 +9,6 @@ Thumbs.db
 .DS_Store
 vsc-extension-quickstart.md
 project*
+intellij/.gradle/
+intellij/.intellijPlatform/
+intellij/build/
