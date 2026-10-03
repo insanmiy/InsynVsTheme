@@ -12,3 +12,4 @@ project*
 intellij/.gradle/
 intellij/.intellijPlatform/
 intellij/build/
+*.old/

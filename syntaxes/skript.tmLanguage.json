@@ -35,6 +35,9 @@
 		},
 		{
 			"include": "#expressions"
+		},
+		{
+			"include": "#color-codes"
 		}
 	],
 	"repository": {
@@ -112,6 +115,98 @@
 		"expressions": {
 			"name": "support.variable.expression.skript",
 			"match": "\\b(player|block|entity|location|world|item|inventory|slot|command|argument|loop-block|loop-value|loop-index|loop-entity|loop-player)\\b"
+		},
+		"color-codes": {
+			"patterns": [
+				{
+					"name": "constant.other.color-code.black.skript",
+					"match": "(?<!&)&0"
+				},
+				{
+					"name": "constant.other.color-code.dark-blue.skript",
+					"match": "(?<!&)&1"
+				},
+				{
+					"name": "constant.other.color-code.dark-green.skript",
+					"match": "(?<!&)&2"
+				},
+				{
+					"name": "constant.other.color-code.dark-aqua.skript",
+					"match": "(?<!&)&3"
+				},
+				{
+					"name": "constant.other.color-code.dark-red.skript",
+					"match": "(?<!&)&4"
+				},
+				{
+					"name": "constant.other.color-code.dark-purple.skript",
+					"match": "(?<!&)&5"
+				},
+				{
+					"name": "constant.other.color-code.gold.skript",
+					"match": "(?<!&)&6"
+				},
+				{
+					"name": "constant.other.color-code.gray.skript",
+					"match": "(?<!&)&7"
+				},
+				{
+					"name": "constant.other.color-code.dark-gray.skript",
+					"match": "(?<!&)&8"
+				},
+				{
+					"name": "constant.other.color-code.blue.skript",
+					"match": "(?<!&)&9"
+				},
+				{
+					"name": "constant.other.color-code.green.skript",
+					"match": "(?<!&)&a"
+				},
+				{
+					"name": "constant.other.color-code.aqua.skript",
+					"match": "(?<!&)&b"
+				},
+				{
+					"name": "constant.other.color-code.red.skript",
+					"match": "(?<!&)&c"
+				},
+				{
+					"name": "constant.other.color-code.light-purple.skript",
+					"match": "(?<!&)&d"
+				},
+				{
+					"name": "constant.other.color-code.yellow.skript",
+					"match": "(?<!&)&e"
+				},
+				{
+					"name": "constant.other.color-code.white.skript",
+					"match": "(?<!&)&f"
+				},
+				{
+					"name": "constant.other.format-code.obfuscated.skript",
+					"match": "(?<!&)&k"
+				},
+				{
+					"name": "constant.other.format-code.bold.skript",
+					"match": "(?<!&)&l"
+				},
+				{
+					"name": "constant.other.format-code.strikethrough.skript",
+					"match": "(?<!&)&m"
+				},
+				{
+					"name": "constant.other.format-code.underline.skript",
+					"match": "(?<!&)&n"
+				},
+				{
+					"name": "constant.other.format-code.italic.skript",
+					"match": "(?<!&)&o"
+				},
+				{
+					"name": "constant.other.format-code.reset.skript",
+					"match": "(?<!&)&r"
+				}
+			]
 		}
 	}
 }
