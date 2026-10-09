@@ -36,5 +36,3 @@ The Gradle build downloads an IntelliJ IDEA development instance. The PowerShell
 2. Use the gear menu and choose **Install Plugin from Disk**.
 3. Select `build/distributions/InsynVsTheme-intellij-<version>.zip`.
 4. Choose **Insyn** or **Insyn Colorful** under **Settings | Appearance & Behavior | Appearance**.
-
-IntelliJ IDEA uses its native file-type icons. The VS Code-specific icon mappings, Skript TextMate grammar, and highlighted-comment decoration are not part of this theme plugin because those features use editor-specific extension APIs.
