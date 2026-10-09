@@ -17,11 +17,6 @@ InsynVsTheme is a dark, modern theme suite crafted for Visual Studio Code and In
 - **Insyn File Icons**: Clean, monochrome file and folder icons tuned to the theme palette.
 - **Insyn Colorful Icons**: Vibrant, full-color icons with custom shapes for hundreds of extensions and filenames.
 
-### Additional Features
-
-- **Skript Language Support**: Built-in syntax highlighting for Minecraft Skript, including in-editor preview colors for Minecraft color codes (`&0` through `&f`) and format codes (`&l`, `&o`, `&n`, `&m`, `&k`, `&r`).
-- **Highlighted Comment Lines**: Bright comment highlighting triggered by `//.` and `#.`.
-
 ---
 
 ## IntelliJ IDEA
