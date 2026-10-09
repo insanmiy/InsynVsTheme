@@ -14,3 +14,4 @@ intellij/**
 *.vsix
 image.png
 PROJECT_CONTEXT.md
+theme-editor/**

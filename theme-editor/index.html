@@ -1,0 +1,3292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InsynVsTheme Studio - Interactive Theme Customizer</title>
+  <style>
+    :root {
+      --bg-canvas: #02050b;
+      --bg-panel: #050c17;
+      --bg-card: #081423;
+      --bg-row-hover: #0c1e33;
+      --border-color: #12283e;
+      --border-light: #1b3a5c;
+      --text-main: #ffffff;
+      --text-muted: #7fa2c4;
+      --accent: #ff6f00;
+      --accent-hover: #ff851f;
+
+      /* Dynamic Theme Variables */
+      --editor-bg: #030812;
+      --editor-fg: #6187b5;
+      --line-number: #213957;
+      --line-number-active: #3b7ec7;
+      --line-highlight: #07111d;
+      --selection-bg: #10395f80;
+      --cursor-color: #ff6f00;
+      --indent-guide: #10263a;
+      --indent-guide-active: #2b5e8c;
+      --bracket-match-border: #2866ab;
+      --bracket-match-bg: #0d3152;
+
+      /* Syntax Tokens */
+      --syn-keyword: #2866ab;
+      --syn-keyword-weight: bold;
+      --syn-keyword-style: normal;
+      --syn-type: #3b7ec7;
+      --syn-type-weight: normal;
+      --syn-type-style: normal;
+      --syn-interface: #3388bd;
+      --syn-interface-weight: normal;
+      --syn-interface-style: normal;
+      --syn-function: #4c72c4;
+      --syn-function-weight: normal;
+      --syn-function-style: normal;
+      --syn-variable: #6187b5;
+      --syn-variable-weight: normal;
+      --syn-variable-style: normal;
+      --syn-parameter: #5085bc;
+      --syn-parameter-weight: normal;
+      --syn-parameter-style: normal;
+      --syn-property: #4177ba;
+      --syn-property-weight: normal;
+      --syn-property-style: normal;
+      --syn-string: #2c78a2;
+      --syn-string-weight: normal;
+      --syn-string-style: normal;
+      --syn-escape: #3fa0ce;
+      --syn-escape-weight: bold;
+      --syn-escape-style: normal;
+      --syn-number: #3388bd;
+      --syn-number-weight: normal;
+      --syn-number-style: normal;
+      --syn-boolean: #3388bd;
+      --syn-boolean-weight: bold;
+      --syn-boolean-style: normal;
+      --syn-comment: #2f4f72;
+      --syn-comment-weight: normal;
+      --syn-comment-style: italic;
+      --syn-doc: #385d85;
+      --syn-doc-weight: normal;
+      --syn-doc-style: italic;
+      --syn-operator: #476b91;
+      --syn-operator-weight: normal;
+      --syn-operator-style: normal;
+      --syn-punctuation: #476b91;
+      --syn-punctuation-weight: normal;
+      --syn-punctuation-style: normal;
+      --syn-annotation: #3676b8;
+      --syn-annotation-weight: normal;
+      --syn-annotation-style: normal;
+      --syn-regex: #367ec0;
+      --syn-regex-weight: normal;
+      --syn-regex-style: normal;
+      --syn-bracket-1: #3b7ec7;
+      --syn-bracket-1-weight: normal;
+      --syn-bracket-1-style: normal;
+      --syn-bracket-2: #4c72c4;
+      --syn-bracket-2-weight: normal;
+      --syn-bracket-2-style: normal;
+      --syn-bracket-3: #2c78a2;
+      --syn-bracket-3-weight: normal;
+      --syn-bracket-3-style: normal;
+      --syn-bracket-4: #3388bd;
+      --syn-bracket-4-weight: normal;
+      --syn-bracket-4-style: normal;
+      --syn-bracket-5: #6187b5;
+      --syn-bracket-5-weight: normal;
+      --syn-bracket-5-style: normal;
+      --syn-bracket-6: #4177ba;
+      --syn-bracket-6-weight: normal;
+      --syn-bracket-6-style: normal;
+
+      /* Workbench Chrome */
+      --wb-title-bg: #02050b;
+      --wb-title-fg: #ffffff;
+      --wb-activity-bg: #02050b;
+      --wb-activity-fg: #ffffff;
+      --wb-activity-badge: #ff6f00;
+      --wb-sidebar-bg: #050c17;
+      --wb-sidebar-fg: #ffffff;
+      --wb-tab-active-bg: #07111e;
+      --wb-tab-active-fg: #ffffff;
+      --wb-tab-inactive-bg: #030911;
+      --wb-tab-inactive-fg: #ffffff80;
+      --wb-tab-border: #ff6f00;
+      --wb-statusbar-bg: #071e35;
+      --wb-statusbar-fg: #ffffff;
+      --wb-terminal-bg: #030812;
+      --wb-terminal-fg: #ffffff;
+      --wb-ui-warning: #ffffff;
+      --wb-ui-error: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg-canvas);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Top Bar */
+    header {
+      background: #02050b;
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      background: var(--accent);
+      color: #02050b;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      background: #0d2640;
+      color: #ffffff;
+      border: 1px solid #1c456b;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover {
+      background: #173d63;
+      border-color: #2a5f91;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #02050b;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    /* Main Workspace */
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      overflow: hidden;
+    }
+
+    /* Sidebar controls */
+    aside {
+      background: var(--bg-panel);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sidebar-nav-tabs {
+      display: flex;
+      background: #030812;
+      border-bottom: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+
+    .nav-tab-btn {
+      flex: 1;
+      padding: 11px 8px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-tab-btn:hover {
+      color: #ffffff;
+      background: #071322;
+    }
+
+    .nav-tab-btn.active {
+      color: #ffffff;
+      border-bottom-color: var(--accent);
+      background: var(--bg-panel);
+    }
+
+    .sidebar-search-box {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border-color);
+      background: #040a15;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .search-input {
+      width: 100%;
+      background: #06111e;
+      border: 1px solid var(--border-color);
+      color: #ffffff;
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .controls-scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .tab-section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .tab-section.hidden {
+      display: none;
+    }
+
+    .control-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .card-title {
+      padding: 10px 14px;
+      background: #09192c;
+      font-size: 12px;
+      font-weight: 700;
+      color: #9eccfa;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .color-row {
+      padding: 11px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #0c1e30;
+      transition: background 0.12s ease;
+      min-height: 52px;
+    }
+
+    .color-row:last-child {
+      border-bottom: none;
+    }
+
+    .color-row:hover {
+      background: var(--bg-row-hover);
+    }
+
+    .color-label-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding-right: 12px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .color-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .color-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .color-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .color-picker {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 32px;
+      height: 32px;
+      border: 2px solid #1a3c5e;
+      border-radius: 6px;
+      cursor: pointer;
+      background: transparent;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .color-picker::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    .color-picker::-webkit-color-swatch {
+      border: none;
+      border-radius: 4px;
+    }
+
+    .hex-input {
+      width: 82px;
+      background: #040c16;
+      border: 1px solid #1c3b5a;
+      color: #ffffff;
+      padding: 6px 8px;
+      border-radius: 5px;
+      font-family: Consolas, monospace;
+      font-size: 12px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .hex-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .toggle-btn {
+      background: #061525;
+      border: 1px solid #193855;
+      color: #7fa2c4;
+      width: 25px;
+      height: 28px;
+      padding: 0;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .toggle-btn.btn-bold {
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .toggle-btn.btn-italic {
+      font-style: italic;
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 13px;
+    }
+
+    .toggle-btn:hover {
+      color: #ffffff;
+      border-color: #3b7ec7;
+      background: #0a2038;
+    }
+
+    .toggle-btn.active {
+      background: var(--accent);
+      color: #02050b;
+      border-color: var(--accent);
+      font-weight: 800;
+      box-shadow: 0 0 5px rgba(255, 111, 0, 0.4);
+    }
+
+    /* Preset list items */
+    .preset-card {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      border-bottom: 1px solid #0c1e30;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .preset-card:last-child {
+      border-bottom: none;
+    }
+
+    .preset-card:hover {
+      background: var(--bg-row-hover);
+    }
+
+    .preset-card.active {
+      background: #0e2742;
+      border-left: 3px solid var(--accent);
+    }
+
+    .preset-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .preset-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .preset-card-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .preset-palette-preview {
+      display: flex;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .palette-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Right Preview Stage */
+    .preview-stage {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: var(--wb-title-bg);
+      overflow: hidden;
+    }
+
+    .editor-top-bar {
+      background: #040a13;
+      border-bottom: 1px solid #0d2032;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      flex-shrink: 0;
+    }
+
+    .editor-tabs {
+      display: flex;
+      align-items: center;
+    }
+
+    .editor-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      font-size: 13px;
+      color: var(--wb-tab-inactive-fg);
+      cursor: pointer;
+      border-top: 2px solid transparent;
+      user-select: none;
+      background: var(--wb-tab-inactive-bg);
+      border-right: 1px solid #0a1927;
+      transition: all 0.12s ease;
+    }
+
+    .editor-tab.active {
+      color: var(--wb-tab-active-fg);
+      background: var(--editor-bg);
+      border-top: 2px solid var(--wb-tab-border);
+    }
+
+    .editor-tab:hover:not(.active) {
+      color: #ffffff;
+      background: #06111e;
+    }
+
+    .editor-controls-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .editor-lang-select {
+      background: #071424;
+      border: 1px solid #1a3c5e;
+      color: #ffffff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+
+    .info-hint-chip {
+      font-size: 11px;
+      color: #72a6d8;
+      background: #08182a;
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid #143555;
+    }
+
+    /* Real-Time Editable Code Area */
+    .editor-wrapper {
+      flex: 1;
+      display: flex;
+      background: var(--editor-bg);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gutter {
+      width: 58px;
+      background: var(--editor-bg);
+      color: var(--line-number);
+      user-select: none;
+      text-align: right;
+      padding: 16px 12px 16px 0;
+      border-right: 1px solid #091a2b;
+      font-family: Consolas, "Cascadia Code", "Fira Code", monospace;
+      font-size: 14px;
+      line-height: 22px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .gutter-num.active {
+      color: var(--line-number-active);
+      font-weight: 700;
+    }
+
+    .code-canvas-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      font-family: Consolas, "Cascadia Code", "Fira Code", monospace;
+      font-size: 14px;
+      line-height: 22px;
+    }
+
+    /* Transparent editable textarea overlay on top of highlighted pre */
+    .code-textarea,
+    .code-highlight-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 16px 20px;
+      margin: 0;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      tab-size: 4;
+      white-space: pre;
+      overflow: auto;
+      box-sizing: border-box;
+    }
+
+    .code-highlight-layer {
+      color: var(--editor-fg);
+      background: transparent;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .code-textarea {
+      color: transparent;
+      background: transparent;
+      caret-color: var(--cursor-color);
+      resize: none;
+      z-index: 2;
+    }
+
+    .code-textarea::selection {
+      background: var(--selection-bg);
+    }
+
+    /* Syntax Tokens In Preview */
+    .tok-kwd { color: var(--syn-keyword); font-weight: var(--syn-keyword-weight, normal); font-style: var(--syn-keyword-style, normal); }
+    .tok-typ { color: var(--syn-type); font-weight: var(--syn-type-weight, normal); font-style: var(--syn-type-style, normal); }
+    .tok-ifc { color: var(--syn-interface); font-weight: var(--syn-interface-weight, normal); font-style: var(--syn-interface-style, normal); }
+    .tok-fn  { color: var(--syn-function); font-weight: var(--syn-function-weight, normal); font-style: var(--syn-function-style, normal); }
+    .tok-var { color: var(--syn-variable); font-weight: var(--syn-variable-weight, normal); font-style: var(--syn-variable-style, normal); }
+    .tok-param { color: var(--syn-parameter); font-weight: var(--syn-parameter-weight, normal); font-style: var(--syn-parameter-style, normal); }
+    .tok-prop{ color: var(--syn-property); font-weight: var(--syn-property-weight, normal); font-style: var(--syn-property-style, normal); }
+    .tok-str { color: var(--syn-string); font-weight: var(--syn-string-weight, normal); font-style: var(--syn-string-style, normal); }
+    .tok-esc { color: var(--syn-escape); font-weight: var(--syn-escape-weight, bold); font-style: var(--syn-escape-style, normal); }
+    .tok-num { color: var(--syn-number); font-weight: var(--syn-number-weight, normal); font-style: var(--syn-number-style, normal); }
+    .tok-bool{ color: var(--syn-boolean); font-weight: var(--syn-boolean-weight, bold); font-style: var(--syn-boolean-style, normal); }
+    .tok-cmt { color: var(--syn-comment); font-weight: var(--syn-comment-weight, normal); font-style: var(--syn-comment-style, italic); }
+    .tok-doc { color: var(--syn-doc); font-weight: var(--syn-doc-weight, normal); font-style: var(--syn-doc-style, italic); }
+    .tok-op  { color: var(--syn-operator); font-weight: var(--syn-operator-weight, normal); font-style: var(--syn-operator-style, normal); }
+    .tok-punc{ color: var(--syn-punctuation); font-weight: var(--syn-punctuation-weight, normal); font-style: var(--syn-punctuation-style, normal); }
+    .tok-ann { color: var(--syn-annotation); font-weight: var(--syn-annotation-weight, normal); font-style: var(--syn-annotation-style, normal); }
+    .tok-reg { color: var(--syn-regex); font-weight: var(--syn-regex-weight, normal); font-style: var(--syn-regex-style, normal); }
+    .tok-b1  { color: var(--syn-bracket-1); font-weight: var(--syn-bracket-1-weight, normal); font-style: var(--syn-bracket-1-style, normal); }
+    .tok-b2  { color: var(--syn-bracket-2); font-weight: var(--syn-bracket-2-weight, normal); font-style: var(--syn-bracket-2-style, normal); }
+    .tok-b3  { color: var(--syn-bracket-3); font-weight: var(--syn-bracket-3-weight, normal); font-style: var(--syn-bracket-3-style, normal); }
+
+    /* Bottom Status Bar */
+    .status-bar-mock {
+      background: var(--wb-statusbar-bg);
+      color: var(--wb-statusbar-fg);
+      padding: 4px 16px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #103254;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .status-items {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-badge.warning { color: var(--wb-ui-warning); font-weight: 600; }
+    .status-badge.error { color: var(--wb-ui-error); font-weight: 600; }
+
+    /* Modal for JSON */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal-box {
+      width: 820px;
+      max-width: 92vw;
+      max-height: 85vh;
+      background: #050e1a;
+      border: 1px solid #173b57;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #122c44;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 { font-size: 16px; font-weight: 700; }
+
+    .modal-body {
+      padding: 16px 20px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .json-code {
+      width: 100%;
+      height: 420px;
+      background: #02060d;
+      border: 1px solid #12283e;
+      color: #9eccfa;
+      font-family: Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 14px;
+      border-radius: 6px;
+      resize: none;
+      white-space: pre;
+    }
+
+    .modal-footer {
+      padding: 14px 20px;
+      border-top: 1px solid #122c44;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0e375e;
+      border: 1px solid #2365a1;
+      color: #ffffff;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.25s ease;
+      pointer-events: none;
+      z-index: 200;
+    }
+
+    /* Live Active Line Background In Preview Canvas */
+    .code-active-line-bg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 22px;
+      background: var(--line-highlight);
+      pointer-events: none;
+      z-index: 0;
+      display: block;
+    }
+
+    /* Live Matching Bracket Highlight */
+    .tok-bracket-match {
+      outline: 1.5px solid var(--bracket-match-border);
+      background: rgba(40, 102, 171, 0.28);
+      border-radius: 2px;
+      box-shadow: 0 0 4px var(--bracket-match-border);
+    }
+
+    /* Import Dropzone */
+    .import-dropzone {
+      padding: 16px;
+      border: 2px dashed #173b57;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      background: #040c17;
+    }
+
+    /* Visual Theme Dictionary & Guide Cards */
+    .guide-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+
+    .guide-card:hover {
+      border-color: #2b5e8c;
+      background: #091829;
+    }
+
+    .guide-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .guide-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .guide-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #0c2b4c;
+      color: #82b6e8;
+      font-family: Consolas, monospace;
+      letter-spacing: 0.3px;
+    }
+
+    .guide-card-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .guide-card-example {
+      background: #030812;
+      border: 1px solid #0d2238;
+      border-radius: 5px;
+      padding: 6px 10px;
+      font-family: Consolas, monospace;
+      font-size: 12px;
+      color: #9eccfa;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .guide-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2px;
+      font-size: 11px;
+    }
+
+    .guide-jump-btn {
+      background: #0d2742;
+      border: 1px solid #1c4a75;
+      color: #a0cbf7;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .guide-jump-btn:hover {
+      background: #17426e;
+      color: #ffffff;
+    }
+
+    .guide-swatch-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #7fa2c4;
+    }
+
+    .guide-color-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Flash Highlight Animation When Jumping From Guide */
+    @keyframes highlightRowAnim {
+      0% { background: rgba(255, 111, 0, 0.45); }
+      100% { background: transparent; }
+    }
+
+    .highlight-flash {
+      animation: highlightRowAnim 1.5s ease-out;
+    }
+
+    #token-inspector-chip {
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    #token-inspector-chip:hover {
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand-section">
+      <div class="brand-title">
+        <span>InsynVsTheme Color Studio</span>
+        <span class="brand-badge">PRO Live Editor</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn" id="btn-reset-current">Reset To Theme</button>
+      <button class="btn" id="btn-import-json">Import Theme JSON</button>
+      <button class="btn" id="btn-export-json">Export Theme JSON</button>
+      <button class="btn btn-primary" id="btn-copy-json">Copy JSON</button>
+    </div>
+  </header>
+
+  <!-- Main View -->
+  <main>
+    <!-- Left Sidebar -->
+    <aside>
+      <nav class="sidebar-nav-tabs">
+        <button class="nav-tab-btn active" data-tab="syntax">Syntax</button>
+        <button class="nav-tab-btn" data-tab="editor">Canvas</button>
+        <button class="nav-tab-btn" data-tab="workbench">Workbench</button>
+        <button class="nav-tab-btn" data-tab="presets">Presets</button>
+        <button class="nav-tab-btn" data-tab="guide">Guide</button>
+      </nav>
+
+      <div class="sidebar-search-box">
+        <input type="text" class="search-input" id="search-filter" placeholder="Filter settings (e.g. string, keyword, line)...">
+      </div>
+
+      <div class="controls-scroll-area">
+
+        <!-- TAB 1: SYNTAX TOKENS -->
+        <div class="tab-section" id="section-syntax">
+
+          <!-- Literals: Strings, Numbers, Escapes -->
+          <div class="control-card">
+            <div class="card-title">Strings & Numbers</div>
+            <div class="color-row" data-search="string strings text quotes">
+              <div class="color-label-wrap">
+                <span class="color-name">Strings</span>
+                <span class="color-sub">"hello world", 'text'</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-string" data-target="syn-string" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-string" data-target="syn-string" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-string" value="#2C78A2">
+                <input type="text" class="hex-input" id="hex-syn-string" value="#2C78A2">
+              </div>
+            </div>
+            <div class="color-row" data-search="escape characters slash regex">
+              <div class="color-label-wrap">
+                <span class="color-name">Escape Characters</span>
+                <span class="color-sub">\n, \t, \", \\</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold active" id="btn-bold-syn-escape" data-target="syn-escape" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-escape" data-target="syn-escape" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-escape" value="#3FA0CE">
+                <input type="text" class="hex-input" id="hex-syn-escape" value="#3FA0CE">
+              </div>
+            </div>
+            <div class="color-row" data-search="numbers integers floats numeric">
+              <div class="color-label-wrap">
+                <span class="color-name">Numbers</span>
+                <span class="color-sub">42, 3.1415, 0xFF</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-number" data-target="syn-number" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-number" data-target="syn-number" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-number" value="#3388BD">
+                <input type="text" class="hex-input" id="hex-syn-number" value="#3388BD">
+              </div>
+            </div>
+            <div class="color-row" data-search="booleans true false null constant">
+              <div class="color-label-wrap">
+                <span class="color-name">Booleans & Null</span>
+                <span class="color-sub">true, false, null, undefined</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold active" id="btn-bold-syn-boolean" data-target="syn-boolean" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-boolean" data-target="syn-boolean" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-boolean" value="#3388BD">
+                <input type="text" class="hex-input" id="hex-syn-boolean" value="#3388BD">
+              </div>
+            </div>
+            <div class="color-row" data-search="regex regular expression pattern">
+              <div class="color-label-wrap">
+                <span class="color-name">Regular Expressions</span>
+                <span class="color-sub">/^v\d+$/i, /pattern/g</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-regex" data-target="syn-regex" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-regex" data-target="syn-regex" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-regex" value="#367EC0">
+                <input type="text" class="hex-input" id="hex-syn-regex" value="#367EC0">
+              </div>
+            </div>
+          </div>
+
+          <!-- Keywords, Types & Functions -->
+          <div class="control-card">
+            <div class="card-title">Keywords & Structure</div>
+            <div class="color-row" data-search="keyword keywords public class if return">
+              <div class="color-label-wrap">
+                <span class="color-name">Keywords</span>
+                <span class="color-sub">public, class, if, return, const</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold active" id="btn-bold-syn-keyword" data-target="syn-keyword" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-keyword" data-target="syn-keyword" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-keyword" value="#2866AB">
+                <input type="text" class="hex-input" id="hex-syn-keyword" value="#2866AB">
+              </div>
+            </div>
+            <div class="color-row" data-search="types classes type class struct enum">
+              <div class="color-label-wrap">
+                <span class="color-name">Types & Classes</span>
+                <span class="color-sub">String, System, List, Map</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-type" data-target="syn-type" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-type" data-target="syn-type" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-type" value="#3B7EC7">
+                <input type="text" class="hex-input" id="hex-syn-type" value="#3B7EC7">
+              </div>
+            </div>
+            <div class="color-row" data-search="interface interfaces contract runnable serializable event">
+              <div class="color-label-wrap">
+                <span class="color-name">Interfaces</span>
+                <span class="color-sub">Runnable, Serializable, Event</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-interface" data-target="syn-interface" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-interface" data-target="syn-interface" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-interface" value="#3388BD">
+                <input type="text" class="hex-input" id="hex-syn-interface" value="#3388BD">
+              </div>
+            </div>
+            <div class="color-row" data-search="functions methods fn call def">
+              <div class="color-label-wrap">
+                <span class="color-name">Functions & Methods</span>
+                <span class="color-sub">println, activate, main, size</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-function" data-target="syn-function" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-function" data-target="syn-function" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-function" value="#4C72C4">
+                <input type="text" class="hex-input" id="hex-syn-function" value="#4C72C4">
+              </div>
+            </div>
+          </div>
+
+          <!-- Variables, Params & Properties -->
+          <div class="control-card">
+            <div class="card-title">Variables & Identifiers</div>
+            <div class="color-row" data-search="variables variable local identifier">
+              <div class="color-label-wrap">
+                <span class="color-name">Variables</span>
+                <span class="color-sub">args, counter, items, res</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-variable" data-target="syn-variable" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-variable" data-target="syn-variable" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-variable" value="#6187B5">
+                <input type="text" class="hex-input" id="hex-syn-variable" value="#6187B5">
+              </div>
+            </div>
+            <div class="color-row" data-search="parameter params argument">
+              <div class="color-label-wrap">
+                <span class="color-name">Parameters</span>
+                <span class="color-sub">context, event, index, opt</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-parameter" data-target="syn-parameter" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-parameter" data-target="syn-parameter" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-parameter" value="#5085BC">
+                <input type="text" class="hex-input" id="hex-syn-parameter" value="#5085BC">
+              </div>
+            </div>
+            <div class="color-row" data-search="property field member attribute">
+              <div class="color-label-wrap">
+                <span class="color-name">Properties & Fields</span>
+                <span class="color-sub">out, length, width, id</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-property" data-target="syn-property" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-property" data-target="syn-property" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-property" value="#4177BA">
+                <input type="text" class="hex-input" id="hex-syn-property" value="#4177BA">
+              </div>
+            </div>
+          </div>
+
+          <!-- Comments & Annotations -->
+          <div class="control-card">
+            <div class="card-title">Comments & Annotations</div>
+            <div class="color-row" data-search="comment comments note single line">
+              <div class="color-label-wrap">
+                <span class="color-name">Comments</span>
+                <span class="color-sub">// single line, /* block */</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-comment" data-target="syn-comment" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic active" id="btn-italic-syn-comment" data-target="syn-comment" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-comment" value="#2F4F72">
+                <input type="text" class="hex-input" id="hex-syn-comment" value="#2F4F72">
+              </div>
+            </div>
+            <div class="color-row" data-search="doc javadoc tsdoc documentation">
+              <div class="color-label-wrap">
+                <span class="color-name">Doc Comments</span>
+                <span class="color-sub">/** Javadoc, TSDoc comments */</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-doc" data-target="syn-doc" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic active" id="btn-italic-syn-doc" data-target="syn-doc" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-doc" value="#385D85">
+                <input type="text" class="hex-input" id="hex-syn-doc" value="#385D85">
+              </div>
+            </div>
+            <div class="color-row" data-search="annotation decorator override">
+              <div class="color-label-wrap">
+                <span class="color-name">Annotations</span>
+                <span class="color-sub">@Override, @Component</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-annotation" data-target="syn-annotation" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-annotation" data-target="syn-annotation" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-annotation" value="#3676B8">
+                <input type="text" class="hex-input" id="hex-syn-annotation" value="#3676B8">
+              </div>
+            </div>
+            <div class="color-row" data-search="operator operators plus minus equal">
+              <div class="color-label-wrap">
+                <span class="color-name">Operators</span>
+                <span class="color-sub">==, !=, +, -, *, /, &&, ||</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-operator" data-target="syn-operator" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-operator" data-target="syn-operator" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-operator" value="#476B91">
+                <input type="text" class="hex-input" id="hex-syn-operator" value="#476B91">
+              </div>
+            </div>
+            <div class="color-row" data-search="punctuation delimiter semicolon comma">
+              <div class="color-label-wrap">
+                <span class="color-name">Punctuation</span>
+                <span class="color-sub">;, ,, ., :, -></span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-punctuation" data-target="syn-punctuation" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-punctuation" data-target="syn-punctuation" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-punctuation" value="#476B91">
+                <input type="text" class="hex-input" id="hex-syn-punctuation" value="#476B91">
+              </div>
+            </div>
+          </div>
+
+          <!-- Rainbow Brackets -->
+          <div class="control-card">
+            <div class="card-title">Rainbow Brackets</div>
+            <div class="color-row" data-search="bracket brackets level 1 brace parenthesis">
+              <div class="color-label-wrap">
+                <span class="color-name">Bracket Level 1</span>
+                <span class="color-sub">{ ( [</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-bracket-1" data-target="syn-bracket-1" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-bracket-1" data-target="syn-bracket-1" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-bracket-1" value="#3B7EC7">
+                <input type="text" class="hex-input" id="hex-syn-bracket-1" value="#3B7EC7">
+              </div>
+            </div>
+            <div class="color-row" data-search="bracket brackets level 2">
+              <div class="color-label-wrap">
+                <span class="color-name">Bracket Level 2</span>
+                <span class="color-sub">{ ( [</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-bracket-2" data-target="syn-bracket-2" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-bracket-2" data-target="syn-bracket-2" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-bracket-2" value="#4C72C4">
+                <input type="text" class="hex-input" id="hex-syn-bracket-2" value="#4C72C4">
+              </div>
+            </div>
+            <div class="color-row" data-search="bracket brackets level 3">
+              <div class="color-label-wrap">
+                <span class="color-name">Bracket Level 3</span>
+                <span class="color-sub">{ ( [</span>
+              </div>
+              <div class="color-input-wrap">
+                <button class="toggle-btn btn-bold" id="btn-bold-syn-bracket-3" data-target="syn-bracket-3" data-style="bold" title="Toggle Bold">B</button>
+                <button class="toggle-btn btn-italic" id="btn-italic-syn-bracket-3" data-target="syn-bracket-3" data-style="italic" title="Toggle Italic">I</button>
+                <input type="color" class="color-picker" id="pick-syn-bracket-3" value="#2C78A2">
+                <input type="text" class="hex-input" id="hex-syn-bracket-3" value="#2C78A2">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- TAB 2: EDITOR CANVAS & GUTTER -->
+        <div class="tab-section hidden" id="section-editor">
+          <div class="control-card">
+            <div class="card-title">Background & Lines</div>
+            <div class="color-row" data-search="background canvas editor bg">
+              <div class="color-label-wrap">
+                <span class="color-name">Editor Background</span>
+                <span class="color-sub">editor.background</span>
+              </div>
+              <div class="color-input-wrap">
+                <input type="color" class="color-picker" id="pick-editor-bg" value="#030812">
+                <input type="text" class="hex-input" id="hex-editor-bg" value="#030812">
+              </div>
+            </div>
+            <div class="color-row" data-search="foreground plain text default">
+              <div class="color-label-wrap">
+                <span class="color-name">Default Text</span>
+                <span class="color-sub">editor.foreground</span>
+              </div>
+              <div class="color-input-wrap">
+                <input type="color" class="color-picker" id="pick-editor-fg" value="#6187B5">
+                <input type="text" class="hex-input" id="hex-editor-fg" value="#6187B5">
+              </div>
+            </div>
+            <div class="color-row" data-search="cursor caret blinking">
+              <div class="color-label-wrap">
+                <span class="color-name">Cursor Color</span>
+                <span class="color-sub">editorCursor.foreground</span>
+              </div>
+              <div class="color-input-wrap">
+                <input type="color" class="color-picker" id="pick-cursor-color" value="#FF6F00">
+                <input type="text" class="hex-input" id="hex-cursor-color" value="#FF6F00">
+              </div>
+            </div>
+            <div class="color-row" data-search="line highlight active row">
+              <div class="color-label-wrap">
+                <span class="color-name">Line Highlight</span>
+                <span class="color-sub">lineHighlightBackground</span>
+              </div>
+              <div class="color-input-wrap">
+                <input type="color" class="color-picker" id="pick-line-highlight" value="#07111D">
+                <input type="text" class="hex-input" id="hex-line-highlight" value="#07111D">
+              </div>
+            </div>
+            <div class="color-row" data-search="selection highlight select">
+              <div class="color-label-wrap">
+                <span class="color-name">Selection Background</span>
+                <span class="color-sub">editor.selectionBackground</span>
+              </div>
+              <div class="color-input-wrap">
+                <input type="color" class="color-picker" id="pick-selection-bg" value="#10395F">
+                <input type="text" class="hex-input" id="hex-selection-bg" value="#10395F">
+              </div>
+            </div>
+          </div>
+
+          <div class="control-card">
+            <div class="card-title">Gutter & Guides</div>
+            <div class="color-row" data-search="line number numbers gutter">
+              <div class="color-label-wrap">
+                <span class="color-name">Line Numbers</span>
+                <span class="color-sub">editorLineNumber.foreground</span>
+              </div>
+              <div class="color-input-wrap">
+                <input type="color" class="color-picker" id="pick-line-number" value="#213957">
+                <input type="text" class="hex-input" id="hex-line-number" value="#213957">
+              </div>
+            </div>
+            <div class="color-row" data-search="active line number current">
+              <div class="color-label-wrap">
+                <span class="color-name">Active Line Number</span>
+                <span class="color-sub">activeForeground</span>
+              </div>
+              <div class="color-input-wrap">
+                <input type="color" class="color-picker" id="pick-line-number-active" value="#3B7EC7">
+                <input type="text" class="hex-input" id="hex-line-number-active" value="#3B7EC7">
+              </div>
+            </div>
+            <div class="color-row" data-search="bracket match border">
+              <div class="color-label-wrap">
+                <span class="color-name">Bracket Match Border</span>
+                <span class="color-sub">editorBracketMatch.border</span>
+              </div>
+              <div class="color-input-wrap">
+                <input type="color" class="color-picker" id="pick-bracket-match-border" value="#2866AB">
+                <input type="text" class="hex-input" id="hex-bracket-match-border" value="#2866AB">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: WORKBENCH UI -->
+        <div class="tab-section hidden" id="section-workbench">
+          <div class="control-card">
+            <div class="card-title">Status, Warnings & Tabs</div>
+            <div class="color-row" data-search="warning warnings list yellow orange">
+              <div class="color-label-wrap">
+                <span class="color-name">Warning Foreground</span>
+                <span class="color-sub">list.warningForeground (Terminal tab)</span>
+              </div>
+              <div class="color-input-wrap">
+                <input type="color" class="color-picker" id="pick-wb-ui-warning" value="#FFFFFF">
+                <input type="text" class="hex-input" id="hex-wb-ui-warning" value="#FFFFFF">
+              </div>
+            </div>
+            <div class="color-row" data-search="error errors list red">
+              <div class="color-label-wrap">
+                <span class="color-name">Error Foreground</span>
+                <span class="color-sub">list.errorForeground</span>
+              </div>
+              <div class="color-input-wrap">
+                <input type="color" class="color-picker" id="pick-wb-ui-error" value="#FFFFFF">
+                <input type="text" class="hex-input" id="hex-wb-ui-error" value="#FFFFFF">
+              </div>
+            </div>
+            <div class="color-row" data-search="tab active top border">
+              <div class="color-label-wrap">
+                <span class="color-name">Tab Active Top Border</span>
+                <span class="color-sub">tab.activeBorderTop</span>
+              </div>
+              <div class="color-input-wrap">
+                <input type="color" class="color-picker" id="pick-wb-tab-border" value="#FF6F00">
+                <input type="text" class="hex-input" id="hex-wb-tab-border" value="#FF6F00">
+              </div>
+            </div>
+            <div class="color-row" data-search="status bar background bottom">
+              <div class="color-label-wrap">
+                <span class="color-name">Status Bar Background</span>
+                <span class="color-sub">statusBar.background</span>
+              </div>
+              <div class="color-input-wrap">
+                <input type="color" class="color-picker" id="pick-wb-statusbar-bg" value="#071E35">
+                <input type="text" class="hex-input" id="hex-wb-statusbar-bg" value="#071E35">
+              </div>
+            </div>
+            <div class="color-row" data-search="status bar foreground text">
+              <div class="color-label-wrap">
+                <span class="color-name">Status Bar Foreground</span>
+                <span class="color-sub">statusBar.foreground</span>
+              </div>
+              <div class="color-input-wrap">
+                <input type="color" class="color-picker" id="pick-wb-statusbar-fg" value="#FFFFFF">
+                <input type="text" class="hex-input" id="hex-wb-statusbar-fg" value="#FFFFFF">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: PRESETS -->
+        <div class="tab-section hidden" id="section-presets">
+          <div class="control-card">
+            <div class="card-title">Curated Blue Palettes</div>
+
+            <div class="preset-card active" data-preset="current-dark">
+              <div class="preset-card-top">
+                <span class="preset-card-title">1. Midnight Dark Blue (Current)</span>
+              </div>
+              <span class="preset-card-desc">Deep, rich blue tones with distinct navy, periwinkle and sapphire contrast.</span>
+              <div class="preset-palette-preview">
+                <span class="palette-dot" style="background:#030812"></span>
+                <span class="palette-dot" style="background:#2866AB"></span>
+                <span class="palette-dot" style="background:#3B7EC7"></span>
+                <span class="palette-dot" style="background:#4C72C4"></span>
+                <span class="palette-dot" style="background:#2C78A2"></span>
+                <span class="palette-dot" style="background:#6187B5"></span>
+              </div>
+            </div>
+
+            <div class="preset-card" data-preset="white-strings">
+              <div class="preset-card-top">
+                <span class="preset-card-title">2. White Strings Focus</span>
+              </div>
+              <span class="preset-card-desc">Strings set to bright clean white (#FFFFFF) for ultimate readability.</span>
+              <div class="preset-palette-preview">
+                <span class="palette-dot" style="background:#030812"></span>
+                <span class="palette-dot" style="background:#2866AB"></span>
+                <span class="palette-dot" style="background:#3B7EC7"></span>
+                <span class="palette-dot" style="background:#FFFFFF"></span>
+                <span class="palette-dot" style="background:#3388BD"></span>
+                <span class="palette-dot" style="background:#6187B5"></span>
+              </div>
+            </div>
+
+            <div class="preset-card" data-preset="mid-tones">
+              <div class="preset-card-top">
+                <span class="preset-card-title">3. Mid-Tone Sapphire Blues</span>
+              </div>
+              <span class="preset-card-desc">The previous version you liked: slightly brighter mid-blues with great clarity.</span>
+              <div class="preset-palette-preview">
+                <span class="palette-dot" style="background:#030812"></span>
+                <span class="palette-dot" style="background:#357ABD"></span>
+                <span class="palette-dot" style="background:#4E95E8"></span>
+                <span class="palette-dot" style="background:#6189DF"></span>
+                <span class="palette-dot" style="background:#3A97C8"></span>
+                <span class="palette-dot" style="background:#79A1CF"></span>
+              </div>
+            </div>
+
+            <div class="preset-card" data-preset="lighter-blues">
+              <div class="preset-card-top">
+                <span class="preset-card-title">4. Light Electric Blues</span>
+              </div>
+              <span class="preset-card-desc">Vibrant lighter blues with high contrast across all syntax roles.</span>
+              <div class="preset-palette-preview">
+                <span class="palette-dot" style="background:#030812"></span>
+                <span class="palette-dot" style="background:#4D9FEC"></span>
+                <span class="palette-dot" style="background:#70B8FF"></span>
+                <span class="palette-dot" style="background:#82AAFF"></span>
+                <span class="palette-dot" style="background:#50BAE8"></span>
+                <span class="palette-dot" style="background:#A5C7E8"></span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TAB 5: VISUAL THEME GUIDE & DICTIONARY -->
+        <div class="tab-section hidden" id="section-guide">
+          <div class="control-card">
+            <div class="card-title">Theme Visual Dictionary & Guide</div>
+            <div style="padding: 12px 14px; font-size: 12px; color: var(--text-muted); line-height: 1.5; border-bottom: 1px solid #0c1e30;">
+              Browse Every Syntax Token, Canvas Setting, And UI Element. Click <strong>Configure Setting</strong> Or Click Any Code Word In The Live Editor To Jump Directly To Its Control!
+            </div>
+          </div>
+
+          <!-- Syntax Section In Guide -->
+          <div class="control-card">
+            <div class="card-title">Syntax Tokens Reference</div>
+
+            <!-- Interfaces -->
+            <div class="guide-card" data-search="interface interfaces runnable serializable event contract">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Interfaces <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-interface')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Defines Method Contracts Implemented By Classes. In Java, Types Like Runnable, Serializable, And Event Are Interfaces Rather Than Standard Classes. Styling Interfaces Separately Helps API Contracts Stand Out Instantly.</p>
+              <div class="guide-card-example">
+                <span>implements <strong style="color:var(--syn-interface)">Runnable</strong>, <strong style="color:var(--syn-interface)">Serializable</strong>, <strong style="color:var(--syn-interface)">Event</strong></span>
+                <span class="guide-badge">Scope: entity.name.type.interface</span>
+              </div>
+            </div>
+
+            <!-- Keywords -->
+            <div class="guide-card" data-search="keyword keywords public class return if else static final">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Keywords <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-keyword')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Reserved Language Keywords Governing Program Control Flow, Declarations, Access Modifiers, And Language Grammar Rules.</p>
+              <div class="guide-card-example">
+                <span><strong style="color:var(--syn-keyword)">public</strong> <strong style="color:var(--syn-keyword)">class</strong> ThemeService <strong style="color:var(--syn-keyword)">return</strong> <strong style="color:var(--syn-keyword)">true</strong>;</span>
+                <span class="guide-badge">Scope: keyword, storage.type</span>
+              </div>
+            </div>
+
+            <!-- Types & Classes -->
+            <div class="guide-card" data-search="type types class classes string system list object">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Types & Classes <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-type')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Standard Object Types, Concrete Class Definitions, Built-In Framework Classes, And Complex Type References.</p>
+              <div class="guide-card-example">
+                <span><strong style="color:var(--syn-type)">String</strong>, <strong style="color:var(--syn-type)">System</strong>, <strong style="color:var(--syn-type)">ArrayList</strong>, <strong style="color:var(--syn-type)">BaseService</strong></span>
+                <span class="guide-badge">Scope: entity.name.type, support.class</span>
+              </div>
+            </div>
+
+            <!-- Functions & Methods -->
+            <div class="guide-card" data-search="function functions method methods call println run">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Functions & Methods <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-function')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Callable Routines, Member Methods, Function Invocations, And Function Declarations.</p>
+              <div class="guide-card-example">
+                <span>System.out.<strong style="color:var(--syn-function)">println</strong>("..."), <strong style="color:var(--syn-function)">run</strong>(), <strong style="color:var(--syn-function)">processTheme</strong>(...)</span>
+                <span class="guide-badge">Scope: entity.name.function</span>
+              </div>
+            </div>
+
+            <!-- Variables -->
+            <div class="guide-card" data-search="variable variables local identifier tokens i res">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Variables <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-variable')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Local Variable Identifiers Declared Inside Method Bodies And Blocks.</p>
+              <div class="guide-card-example">
+                <span>List&lt;String&gt; <strong style="color:var(--syn-variable)">tokens</strong>; boolean <strong style="color:var(--syn-variable)">isFirst</strong>; int <strong style="color:var(--syn-variable)">i</strong> = 0;</span>
+                <span class="guide-badge">Scope: variable, variable.other</span>
+              </div>
+            </div>
+
+            <!-- Parameters -->
+            <div class="guide-card" data-search="parameter parameters argument args context workername">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Parameters <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-parameter')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Named Arguments Passed Into Method Signatures, Constructors, And Lambda Expressions.</p>
+              <div class="guide-card-example">
+                <span>void processTheme(String <strong style="color:var(--syn-parameter)">themeId</strong>, int <strong style="color:var(--syn-parameter)">maxRetries</strong>)</span>
+                <span class="guide-badge">Scope: variable.parameter</span>
+              </div>
+            </div>
+
+            <!-- Properties & Fields -->
+            <div class="guide-card" data-search="property properties field fields member out length id">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Properties & Fields <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-property')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Class Field Members, Static Constants, And Object Attributes Accessed Via Dot Syntax.</p>
+              <div class="guide-card-example">
+                <span>System.<strong style="color:var(--syn-property)">out</strong>, this.<strong style="color:var(--syn-property)">activeCount</strong>, <strong style="color:var(--syn-property)">THEME_NAME</strong></span>
+                <span class="guide-badge">Scope: variable.other.property</span>
+              </div>
+            </div>
+
+            <!-- Strings -->
+            <div class="guide-card" data-search="string strings quotes text hello world">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Strings <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-string')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Literal Text Data Enclosed In Double Quotes, Single Quotes, Or Template String Literals.</p>
+              <div class="guide-card-example">
+                <span><strong style="color:var(--syn-string)">"InsynVsTheme"</strong>, <strong style="color:var(--syn-string)">"Starting Theme Service"</strong></span>
+                <span class="guide-badge">Scope: string, string.quoted</span>
+              </div>
+            </div>
+
+            <!-- Escape Characters -->
+            <div class="guide-card" data-search="escape characters slash newline tab backslash">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Escape Characters <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-escape')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Backslash-Prefixed Control Codes Nested Inside String Literals (E.g. Newlines, Tabs, Escaped Quotes).</p>
+              <div class="guide-card-example">
+                <span>"Line One<strong style="color:var(--syn-escape)">\n</strong><strong style="color:var(--syn-escape)">\t</strong><strong style="color:var(--syn-escape)">\"</strong>Escaped Text<strong style="color:var(--syn-escape)">\"</strong>"</span>
+                <span class="guide-badge">Scope: constant.character.escape</span>
+              </div>
+            </div>
+
+            <!-- Numbers -->
+            <div class="guide-card" data-search="number numbers integer float double hex 42">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Numbers <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-number')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Numeric Literal Values Including Integer Values, Floating Point Decimals, And Hexadecimal Numbers.</p>
+              <div class="guide-card-example">
+                <span><strong style="color:var(--syn-number)">42</strong>, <strong style="color:var(--syn-number)">2.5</strong>, <strong style="color:var(--syn-number)">3.1415</strong>, <strong style="color:var(--syn-number)">0xFF00AA</strong></span>
+                <span class="guide-badge">Scope: constant.numeric</span>
+              </div>
+            </div>
+
+            <!-- Booleans & Null -->
+            <div class="guide-card" data-search="boolean booleans true false null undefined constant">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Booleans & Null <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-boolean')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Truth Value Flags (True, False) And Special Empty State Language Primitives (Null, Undefined).</p>
+              <div class="guide-card-example">
+                <span>boolean isReady = <strong style="color:var(--syn-boolean)">true</strong>; if (data == <strong style="color:var(--syn-boolean)">null</strong>)</span>
+                <span class="guide-badge">Scope: constant.language.boolean</span>
+              </div>
+            </div>
+
+            <!-- Regular Expressions -->
+            <div class="guide-card" data-search="regex regular expression pattern match slash">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Regular Expressions <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-regex')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">RegExp Pattern Matching Literals Delimited By Slashes In JavaScript And TypeScript.</p>
+              <div class="guide-card-example">
+                <span>const versionCheck = <strong style="color:var(--syn-regex)">/^v\d+\.\d+\.\d+$/i</strong>;</span>
+                <span class="guide-badge">Scope: string.regexp</span>
+              </div>
+            </div>
+
+            <!-- Comments -->
+            <div class="guide-card" data-search="comment comments note single line block slash">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Comments <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-comment')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Single-Line And Multi-Line Developer Notes And Disabled Code Ignored During Compilation.</p>
+              <div class="guide-card-example">
+                <span><strong style="color:var(--syn-comment)">// Line Comment</strong>, <strong style="color:var(--syn-comment)">/* Block Comment */</strong></span>
+                <span class="guide-badge">Scope: comment, punctuation.definition.comment</span>
+              </div>
+            </div>
+
+            <!-- Doc Comments -->
+            <div class="guide-card" data-search="doc javadoc tsdoc documentation param return">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Doc Comments <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-doc')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Structured Documentation Blocks For Javadoc, TSDoc, And JSDoc Containing Metadata Tags Like @param And @return.</p>
+              <div class="guide-card-example">
+                <span><strong style="color:var(--syn-doc)">/** Executes Background Worker. @param workerName */</strong></span>
+                <span class="guide-badge">Scope: comment.block.documentation</span>
+              </div>
+            </div>
+
+            <!-- Annotations -->
+            <div class="guide-card" data-search="annotation annotations decorator override deprecated">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Annotations <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-annotation')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Compiler Directives And Metadata Decorators Applied To Classes, Methods, And Fields.</p>
+              <div class="guide-card-example">
+                <span><strong style="color:var(--syn-annotation)">@Override</strong>, <strong style="color:var(--syn-annotation)">@Deprecated</strong>, <strong style="color:var(--syn-annotation)">@SuppressWarnings</strong></span>
+                <span class="guide-badge">Scope: entity.name.type.annotation</span>
+              </div>
+            </div>
+
+            <!-- Operators -->
+            <div class="guide-card" data-search="operator operators plus minus equal compare logic">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Operators <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-operator')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Mathematical, Comparison, Assignment, And Logical Symbols Connecting Expressions.</p>
+              <div class="guide-card-example">
+                <span><strong style="color:var(--syn-operator)">==</strong>, <strong style="color:var(--syn-operator)">!=</strong>, <strong style="color:var(--syn-operator)">+</strong>, <strong style="color:var(--syn-operator)">-</strong>, <strong style="color:var(--syn-operator)">&amp;&amp;</strong>, <strong style="color:var(--syn-operator)">||</strong>, <strong style="color:var(--syn-operator)">&gt;=</strong></span>
+                <span class="guide-badge">Scope: keyword.operator</span>
+              </div>
+            </div>
+
+            <!-- Punctuation -->
+            <div class="guide-card" data-search="punctuation delimiter semicolon comma dot colon">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Punctuation <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-punctuation')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Statement Terminators, Argument Delimiters, And Structural Separators In Code.</p>
+              <div class="guide-card-example">
+                <span><strong style="color:var(--syn-punctuation)">;</strong> (Semicolon), <strong style="color:var(--syn-punctuation)">,</strong> (Comma), <strong style="color:var(--syn-punctuation)">.</strong> (Dot), <strong style="color:var(--syn-punctuation)">:</strong> (Colon)</span>
+                <span class="guide-badge">Scope: punctuation, meta.delimiter</span>
+              </div>
+            </div>
+
+            <!-- Rainbow Brackets -->
+            <div class="guide-card" data-search="bracket brackets rainbow brace parenthesis level">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Rainbow Brackets (Levels 1 - 3) <span class="guide-badge">Syntax Token</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('syntax', 'syn-bracket-1')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Alternating Colored Enclosures For Nested Braces, Parentheses, And Brackets Providing Clear Visual Nesting Depth.</p>
+              <div class="guide-card-example">
+                <span><strong style="color:var(--syn-bracket-1)">{</strong> <strong style="color:var(--syn-bracket-2)">(</strong> <strong style="color:var(--syn-bracket-3)">[</strong> Level 3 <strong style="color:var(--syn-bracket-3)">]</strong> <strong style="color:var(--syn-bracket-2)">)</strong> <strong style="color:var(--syn-bracket-1)">}</strong></span>
+                <span class="guide-badge">Key: editorBracketHighlight.foreground1..3</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Canvas & Editor Settings In Guide -->
+          <div class="control-card">
+            <div class="card-title">Editor Canvas & Gutter Settings</div>
+
+            <!-- Editor Background -->
+            <div class="guide-card" data-search="editor background canvas surface window">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Editor Background <span class="guide-badge">Canvas Setting</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('editor', 'editor-bg')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">The Primary Background Fill Color Behind All Code Lines In The VS Code Editor Pane.</p>
+              <div class="guide-card-example">
+                <span>editor.background &bull; Canvas Surface</span>
+                <span class="guide-badge">Key: editor.background</span>
+              </div>
+            </div>
+
+            <!-- Default Text -->
+            <div class="guide-card" data-search="foreground text default plain color">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Default Text Foreground <span class="guide-badge">Canvas Setting</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('editor', 'editor-fg')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">The Base Color Applied To Plain Text, Unmatched Symbols, And Default Editor Identifiers.</p>
+              <div class="guide-card-example">
+                <span>editor.foreground &bull; Base Plain Text</span>
+                <span class="guide-badge">Key: editor.foreground</span>
+              </div>
+            </div>
+
+            <!-- Cursor Color -->
+            <div class="guide-card" data-search="cursor caret blinking pointer insertion">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Cursor Color <span class="guide-badge">Canvas Setting</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('editor', 'cursor-color')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">The Accent Color Of The Blinking Text Insertion Caret In The Active Editor Window.</p>
+              <div class="guide-card-example">
+                <span>editorCursor.foreground &bull; Blinking Caret Bar</span>
+                <span class="guide-badge">Key: editorCursor.foreground</span>
+              </div>
+            </div>
+
+            <!-- Line Highlight -->
+            <div class="guide-card" data-search="line highlight active row current background">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Line Highlight Background <span class="guide-badge">Canvas Setting</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('editor', 'line-highlight')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">The Background Tint Drawn Across The Entire Row Where Your Text Cursor Is Currently Placed.</p>
+              <div class="guide-card-example">
+                <span>editor.lineHighlightBackground &bull; Active Row Bar</span>
+                <span class="guide-badge">Key: editor.lineHighlightBackground</span>
+              </div>
+            </div>
+
+            <!-- Selection Background -->
+            <div class="guide-card" data-search="selection highlight select dragged background">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Selection Background <span class="guide-badge">Canvas Setting</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('editor', 'selection-bg')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">The Background Highlight Color Drawn Behind Text When You Click And Drag To Highlight Code.</p>
+              <div class="guide-card-example">
+                <span>editor.selectionBackground &bull; Text Selection Fill</span>
+                <span class="guide-badge">Key: editor.selectionBackground</span>
+              </div>
+            </div>
+
+            <!-- Line Numbers -->
+            <div class="guide-card" data-search="line number numbers gutter margin">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Line Numbers (Gutter) <span class="guide-badge">Canvas Setting</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('editor', 'line-number')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">The Color Of Inactive Line Numbers Displayed Down The Left Margin Gutter.</p>
+              <div class="guide-card-example">
+                <span>editorLineNumber.foreground &bull; Inactive Gutter Digits</span>
+                <span class="guide-badge">Key: editorLineNumber.foreground</span>
+              </div>
+            </div>
+
+            <!-- Active Line Number -->
+            <div class="guide-card" data-search="active line number current cursor gutter">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Active Line Number <span class="guide-badge">Canvas Setting</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('editor', 'line-number-active')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">The Bright Highlight Color Used For The Line Number Corresponding To The Active Cursor Position.</p>
+              <div class="guide-card-example">
+                <span>editorLineNumber.activeForeground &bull; Active Row Digit</span>
+                <span class="guide-badge">Key: editorLineNumber.activeForeground</span>
+              </div>
+            </div>
+
+            <!-- Bracket Match Border -->
+            <div class="guide-card" data-search="bracket match border outline pair matching">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Bracket Match Border <span class="guide-badge">Canvas Setting</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('editor', 'bracket-match-border')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">The Outline Border Rendered Around Matching Brackets When The Text Cursor Touches Either Opening Or Closing Bracket.</p>
+              <div class="guide-card-example">
+                <span>editorBracketMatch.border &bull; Outlines <strong class="tok-bracket-match">{</strong> Matching Pairs <strong class="tok-bracket-match">}</strong></span>
+                <span class="guide-badge">Key: editorBracketMatch.border</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Workbench Chrome In Guide -->
+          <div class="control-card">
+            <div class="card-title">Workbench UI Chrome Settings</div>
+
+            <!-- Warning Foreground -->
+            <div class="guide-card" data-search="warning warnings list yellow alert status">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Warning Foreground <span class="guide-badge">Workbench Setting</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('workbench', 'wb-ui-warning')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Text And Badge Color For Warnings In Problem Panels, Terminal Tabs, And Status Indicators.</p>
+              <div class="guide-card-example">
+                <span>list.warningForeground &bull; Warning Badges</span>
+                <span class="guide-badge">Key: list.warningForeground</span>
+              </div>
+            </div>
+
+            <!-- Error Foreground -->
+            <div class="guide-card" data-search="error errors list red fatal issue">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Error Foreground <span class="guide-badge">Workbench Setting</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('workbench', 'wb-ui-error')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">Text And Badge Color For Critical Errors, Syntax Failures, And Issue Indicators Across VS Code.</p>
+              <div class="guide-card-example">
+                <span>list.errorForeground &bull; Error Notifications</span>
+                <span class="guide-badge">Key: list.errorForeground</span>
+              </div>
+            </div>
+
+            <!-- Tab Active Top Border -->
+            <div class="guide-card" data-search="tab active top border stripe accent">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Tab Active Top Border <span class="guide-badge">Workbench Setting</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('workbench', 'wb-tab-border')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">The Colored Stripe Running Along The Upper Edge Of The Currently Active Editor Document Tab.</p>
+              <div class="guide-card-example">
+                <span>tab.activeBorderTop &bull; Active Tab Top Stripe</span>
+                <span class="guide-badge">Key: tab.activeBorderTop</span>
+              </div>
+            </div>
+
+            <!-- Status Bar Background -->
+            <div class="guide-card" data-search="status bar background bottom footer">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Status Bar Background <span class="guide-badge">Workbench Setting</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('workbench', 'wb-statusbar-bg')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">The Main Background Color Of The Bottom Footer Bar Spanning Across The Full Width Of VS Code.</p>
+              <div class="guide-card-example">
+                <span>statusBar.background &bull; Bottom Status Bar Fill</span>
+                <span class="guide-badge">Key: statusBar.background</span>
+              </div>
+            </div>
+
+            <!-- Status Bar Foreground -->
+            <div class="guide-card" data-search="status bar foreground text icons footer">
+              <div class="guide-card-header">
+                <span class="guide-card-title">Status Bar Foreground <span class="guide-badge">Workbench Setting</span></span>
+                <button class="guide-jump-btn" onclick="jumpToSetting('workbench', 'wb-statusbar-fg')">Configure Setting</button>
+              </div>
+              <p class="guide-card-desc">The Text And Icon Color Displayed Inside The Bottom Footer Status Bar.</p>
+              <div class="guide-card-example">
+                <span>statusBar.foreground &bull; Bottom Status Bar Content</span>
+                <span class="guide-badge">Key: statusBar.foreground</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- Right Stage: Fully Editable Live Editor -->
+    <section class="preview-stage">
+      <div class="editor-top-bar">
+        <div class="editor-tabs">
+          <div class="editor-tab active" data-sample="java">hello.java</div>
+          <div class="editor-tab" data-sample="js">extension.js</div>
+          <div class="editor-tab" data-sample="json">theme.json</div>
+        </div>
+
+        <div class="editor-controls-bar">
+          <span class="info-hint-chip" id="token-inspector-chip">Click Any Token In Code To Inspect</span>
+          <select class="editor-lang-select" id="lang-select">
+            <option value="java">Language: Java</option>
+            <option value="js">Language: JavaScript</option>
+            <option value="json">Language: JSON</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="editor-wrapper">
+        <div class="gutter" id="gutter-lines"></div>
+        <div class="code-canvas-container">
+          <div class="code-active-line-bg" id="active-line-bg"></div>
+          <pre class="code-highlight-layer" id="highlight-layer"></pre>
+          <textarea class="code-textarea" id="code-editor" spellcheck="false"></textarea>
+        </div>
+      </div>
+
+      <!-- Mock Status Bar -->
+      <footer class="status-bar-mock">
+        <div class="status-items">
+          <span>main*</span>
+          <span class="status-badge warning" id="status-warning">0 Warnings</span>
+          <span class="status-badge error" id="status-error">0 Errors</span>
+        </div>
+        <div class="status-items">
+          <span id="pos-tracker">Ln 1, Col 1</span>
+          <span>UTF-8</span>
+          <span id="lang-label">Java</span>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <!-- Export Modal -->
+  <div class="modal-backdrop" id="export-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Generated Theme Color Configuration</h3>
+        <button class="btn" id="btn-close-modal">Close</button>
+      </div>
+      <div class="modal-body">
+        <textarea class="json-code" id="modal-json" readonly></textarea>
+      </div>
+      <div class="modal-footer">
+        <span style="font-size: 12px; color: var(--text-muted)">Ready to paste directly into themes/InsynVsTheme-color-theme.json</span>
+        <button class="btn btn-primary" id="btn-modal-copy">Copy JSON To Clipboard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import Modal -->
+  <div class="modal-backdrop" id="import-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Import Theme JSON File Or Text</h3>
+        <button class="btn" id="btn-close-import-modal">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="import-dropzone">
+          <input type="file" id="import-file-input" accept=".json" style="display:none">
+          <button class="btn btn-primary" id="btn-browse-file">Select JSON File From Computer</button>
+          <span style="font-size: 12px; color: var(--text-muted)">Or Paste Your Theme JSON Below</span>
+        </div>
+        <textarea class="json-code" id="import-json-text" placeholder="Paste themes/InsynVsTheme-color-theme.json content here..."></textarea>
+      </div>
+      <div class="modal-footer">
+        <span style="font-size: 12px; color: var(--text-muted)">Loads All Colors, Font Styles, And Syntax Tokens Directly Into Studio</span>
+        <button class="btn btn-primary" id="btn-apply-import">Apply Imported Theme</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Copied To Clipboard!</div>
+
+  <script>
+    // Sample Code Definitions
+    const INITIAL_CODE = {
+      java: `package com.insyn.theme;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.ArrayList;
+
+/**
+ * InsynVsTheme Live Preview Studio
+ * Interactive sample showcasing every customizable syntax token!
+ * Click anywhere to type or edit this code in real-time.
+ */
+@Deprecated
+@SuppressWarnings("unused")
+public class ThemeService extends BaseService implements Runnable, Serializable, Event {
+    private static final String THEME_NAME = "InsynVsTheme";
+    public static final double VERSION = 2.5;
+    private int activeCount = 42;
+    private boolean isInitialized = true;
+
+    // Interface definition
+    public interface ThemeListener {
+        void onThemeChanged(String themeId, boolean active);
+    }
+
+    /**
+     * Executes the background theme worker thread.
+     * @param workerName Name of the active worker
+     * @param maxRetries Maximum retry attempts
+     */
+    @Override
+    public void run() {
+        System.out.println("Starting Theme Service: " + THEME_NAME);
+    }
+
+    public boolean processTheme(String themeId, int maxRetries, boolean isForced) {
+        // Line comment: Processing theme tokens
+        if (themeId == null || !this.isInitialized) {
+            return false;
+        }
+
+        List<String> tokens = new ArrayList<>();
+        tokens.add("Syntax Tokens: \\n\\t\\"Escaped Text\\"");
+        tokens.add("Hex: 0xFF00AA");
+
+        for (int i = 0; i < tokens.size(); i++) {
+            boolean isFirst = (i == 0);
+            if (isFirst && (i * 2 >= 0)) {
+                System.out.println("Processing item #" + i + " -> " + tokens.get(i));
+            }
+        }
+
+        return true;
+    }
+}`,
+      js: `const vscode = require("vscode");
+
+/**
+ * InsynVsTheme Live Preview Studio - JavaScript / TypeScript
+ * Demonstrating every customizable syntax element in real-time.
+ */
+// Single-line comment: Theme configuration
+const THEME_NAMES = new Set(["InsynVsTheme", "InsynVsTheme Colorful"]);
+const UPDATE_DELAY_MS = 42;
+const VERSION_REGEX = /^v\\d+\\.\\d+\\.\\d+$/i;
+
+// Interface & Type contracts
+class ThemeEventService {
+    constructor(themeName, isEnabled) {
+        this.themeName = themeName;
+        this.isEnabled = isEnabled;
+    }
+}
+
+/**
+ * Activates the VS Code extension runtime.
+ * @param {vscode.ExtensionContext} context Extension runtime context
+ * @param {Object} options Configuration flags
+ */
+function activate(context, options) {
+    const isDebug = false;
+    let activeCounter = 0;
+
+    const editorDecoration = vscode.window.createTextEditorDecorationType({
+        color: "#FFFFFF",
+        rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
+    });
+
+    console.log(\`Activated \${THEME_NAMES.size} targets at \\n\\t\\"Ready State\\"\`);
+
+    if (options && options.enabled && null !== context) {
+        for (let i = 0; i < 3; i++) {
+            const hasMatch = VERSION_REGEX.test("v2.5.0");
+            if (hasMatch || (i * 2 >= 0)) {
+                activeCounter += i;
+            }
+        }
+    }
+
+    return { activated: true, count: activeCounter };
+}
+
+module.exports = { activate, ThemeEventService };`,
+      json: `{
+  "name": "InsynVsTheme",
+  "type": "dark",
+  "version": 2.5,
+  "semanticHighlighting": true,
+  "colors": {
+    "editor.background": "#030812",
+    "editor.foreground": "#6187B5",
+    "editorCursor.foreground": "#FF6F00"
+  },
+  "tokenColors": [
+    {
+      "name": "Interfaces (Runnable, Serializable, Event)",
+      "scope": ["entity.name.type.interface", "storage.type.interface"],
+      "settings": {
+        "foreground": "#3388BD",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "Strings & Escapes",
+      "scope": ["string", "constant.character.escape"],
+      "settings": {
+        "foreground": "#2C78A2",
+        "fontStyle": "bold"
+      }
+    }
+  ]
+}`
+    };
+
+    // Color definitions and mappings
+    const COLOR_DEFS = [
+      { id: "syn-string", var: "--syn-string", default: "#2C78A2" },
+      { id: "syn-escape", var: "--syn-escape", default: "#3FA0CE" },
+      { id: "syn-number", var: "--syn-number", default: "#3388BD" },
+      { id: "syn-boolean", var: "--syn-boolean", default: "#3388BD" },
+      { id: "syn-regex", var: "--syn-regex", default: "#367EC0" },
+      { id: "syn-keyword", var: "--syn-keyword", default: "#2866AB" },
+      { id: "syn-type", var: "--syn-type", default: "#3B7EC7" },
+      { id: "syn-interface", var: "--syn-interface", default: "#3388BD" },
+      { id: "syn-function", var: "--syn-function", default: "#4C72C4" },
+      { id: "syn-variable", var: "--syn-variable", default: "#6187B5" },
+      { id: "syn-parameter", var: "--syn-parameter", default: "#5085BC" },
+      { id: "syn-property", var: "--syn-property", default: "#4177BA" },
+      { id: "syn-comment", var: "--syn-comment", default: "#2F4F72" },
+      { id: "syn-doc", var: "--syn-doc", default: "#385D85" },
+      { id: "syn-operator", var: "--syn-operator", default: "#476B91" },
+      { id: "syn-punctuation", var: "--syn-punctuation", default: "#476B91" },
+      { id: "syn-annotation", var: "--syn-annotation", default: "#3676B8" },
+      { id: "syn-bracket-1", var: "--syn-bracket-1", default: "#3B7EC7" },
+      { id: "syn-bracket-2", var: "--syn-bracket-2", default: "#4C72C4" },
+      { id: "syn-bracket-3", var: "--syn-bracket-3", default: "#2C78A2" },
+
+      { id: "editor-bg", var: "--editor-bg", default: "#030812" },
+      { id: "editor-fg", var: "--editor-fg", default: "#6187B5" },
+      { id: "cursor-color", var: "--cursor-color", default: "#FF6F00" },
+      { id: "line-highlight", var: "--line-highlight", default: "#07111D" },
+      { id: "selection-bg", var: "--selection-bg", default: "#10395F" },
+      { id: "line-number", var: "--line-number", default: "#213957" },
+      { id: "line-number-active", var: "--line-number-active", default: "#3B7EC7" },
+      { id: "bracket-match-border", var: "--bracket-match-border", default: "#2866AB" },
+
+      { id: "wb-ui-warning", var: "--wb-ui-warning", default: "#FFFFFF" },
+      { id: "wb-ui-error", var: "--wb-ui-error", default: "#FFFFFF" },
+      { id: "wb-tab-border", var: "--wb-tab-border", default: "#FF6F00" },
+      { id: "wb-statusbar-bg", var: "--wb-statusbar-bg", default: "#071E35" },
+      { id: "wb-statusbar-fg", var: "--wb-statusbar-fg", default: "#FFFFFF" }
+    ];
+
+    // Presets Definition
+    const PRESETS = {
+      "current-dark": {
+        "syn-string": "#2C78A2",
+        "syn-escape": "#3FA0CE",
+        "syn-number": "#3388BD",
+        "syn-boolean": "#3388BD",
+        "syn-regex": "#367EC0",
+        "syn-keyword": "#2866AB",
+        "syn-type": "#3B7EC7",
+        "syn-interface": "#3388BD",
+        "syn-function": "#4C72C4",
+        "syn-variable": "#6187B5",
+        "syn-parameter": "#5085BC",
+        "syn-property": "#4177BA",
+        "syn-comment": "#2F4F72",
+        "syn-doc": "#385D85",
+        "syn-operator": "#476B91",
+        "syn-punctuation": "#476B91",
+        "syn-annotation": "#3676B8",
+        "editor-bg": "#030812",
+        "editor-fg": "#6187B5",
+        "line-number": "#213957",
+        "line-number-active": "#3B7EC7",
+        "wb-ui-warning": "#FFFFFF",
+        "wb-ui-error": "#FFFFFF"
+      },
+      "white-strings": {
+        "syn-string": "#FFFFFF",
+        "syn-escape": "#72DBF8",
+        "syn-number": "#3388BD",
+        "syn-boolean": "#3388BD",
+        "syn-regex": "#367EC0",
+        "syn-keyword": "#2866AB",
+        "syn-type": "#3B7EC7",
+        "syn-interface": "#3388BD",
+        "syn-function": "#4C72C4",
+        "syn-variable": "#6187B5",
+        "syn-parameter": "#5085BC",
+        "syn-property": "#4177BA",
+        "syn-comment": "#2F4F72",
+        "syn-doc": "#385D85",
+        "syn-operator": "#476B91",
+        "syn-punctuation": "#476B91",
+        "syn-annotation": "#3676B8",
+        "editor-bg": "#030812",
+        "editor-fg": "#6187B5",
+        "line-number": "#213957",
+        "line-number-active": "#3B7EC7",
+        "wb-ui-warning": "#FFFFFF",
+        "wb-ui-error": "#FFFFFF"
+      },
+      "mid-tones": {
+        "syn-string": "#3A97C8",
+        "syn-escape": "#52B0E0",
+        "syn-number": "#41A0D6",
+        "syn-boolean": "#41A0D6",
+        "syn-regex": "#458DE0",
+        "syn-keyword": "#357ABD",
+        "syn-type": "#4E95E8",
+        "syn-interface": "#41A0D6",
+        "syn-function": "#6189DF",
+        "syn-variable": "#79A1CF",
+        "syn-parameter": "#6C9ED3",
+        "syn-property": "#568FD9",
+        "syn-comment": "#3D658E",
+        "syn-doc": "#4A78A8",
+        "syn-operator": "#5E85AB",
+        "syn-punctuation": "#5E85AB",
+        "syn-annotation": "#458DE0",
+        "editor-bg": "#030812",
+        "editor-fg": "#79A1CF",
+        "line-number": "#2B4A70",
+        "line-number-active": "#4E95E8",
+        "wb-ui-warning": "#FFFFFF",
+        "wb-ui-error": "#FFFFFF"
+      },
+      "lighter-blues": {
+        "syn-string": "#50BAE8",
+        "syn-escape": "#72DBF8",
+        "syn-number": "#62C8F8",
+        "syn-boolean": "#62C8F8",
+        "syn-regex": "#64C8F5",
+        "syn-keyword": "#4D9FEC",
+        "syn-type": "#70B8FF",
+        "syn-interface": "#64C8F5",
+        "syn-function": "#82AAFF",
+        "syn-variable": "#A5C7E8",
+        "syn-parameter": "#92C2EC",
+        "syn-property": "#6CB6FF",
+        "syn-comment": "#527EAA",
+        "syn-doc": "#5E8DB8",
+        "syn-operator": "#7EA6CB",
+        "syn-punctuation": "#7EA6CB",
+        "syn-annotation": "#5BAAF5",
+        "editor-bg": "#030812",
+        "editor-fg": "#A5C7E8",
+        "line-number": "#3B6391",
+        "line-number-active": "#70B8FF",
+        "wb-ui-warning": "#FFFFFF",
+        "wb-ui-error": "#FFFFFF"
+      }
+    };
+
+    // State
+    let currentLang = "java";
+    const textarea = document.getElementById("code-editor");
+    const highlightLayer = document.getElementById("highlight-layer");
+    const gutter = document.getElementById("gutter-lines");
+
+    // Real-Time Syntax Tokenizer
+    function escapeHtml(text) {
+      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    // Set of known interfaces in Java & Web runtimes
+    const KNOWN_INTERFACES = new Set([
+      "Runnable", "Serializable", "Event", "EventListener", "Comparable", "Cloneable",
+      "Iterable", "Iterator", "Collection", "List", "Set", "Map", "Queue", "Deque",
+      "Callable", "Future", "AutoCloseable", "Closeable", "Observer", "Observable",
+      "Consumer", "Supplier", "Function", "Predicate", "Action", "EventHandler",
+      "ThemeListener", "ActionListener", "WindowListener", "MouseListener", "KeyListener",
+      "ItemListener", "IThemeService", "EventEmitter", "ThemeOptions"
+    ]);
+
+    // Known parameters in sample code and typical signatures
+    const KNOWN_PARAMS = new Set([
+      "args", "workerName", "maxRetries", "themeId", "isForced", "active", "context",
+      "options", "themeName", "isEnabled", "event", "index", "count"
+    ]);
+
+    // Known properties / fields in sample classes
+    const KNOWN_PROPS = new Set([
+      "THEME_NAME", "VERSION", "activeCount", "isInitialized", "counter", "out",
+      "length", "width", "height", "id", "name", "size"
+    ]);
+
+    function tokenizeCode(code, lang, matchedIndices) {
+      const lines = code.split("\n");
+      let inBlockComment = false;
+      let isDocComment = false;
+      let globalCharOffset = 0;
+
+      const keywords = new Set([
+        "public", "private", "protected", "static", "final", "class", "interface",
+        "enum", "record", "extends", "implements", "package", "import", "return", "if",
+        "else", "for", "while", "do", "switch", "case", "default", "break", "continue",
+        "new", "this", "super", "try", "catch", "finally", "throw", "throws",
+        "void", "int", "boolean", "byte", "char", "short", "long", "float", "double",
+        "const", "let", "var", "function", "async", "await", "export", "require",
+        "module", "from", "as", "typeof", "instanceof", "assert", "constructor"
+      ]);
+
+      const booleans = new Set(["true", "false", "null", "undefined"]);
+
+      // Track interfaces declared with `implements` or `interface` in current file
+      const dynamicInterfaces = new Set();
+      const implementsRegex = /implements\s+([^{]+)/g;
+      let implMatch;
+      while ((implMatch = implementsRegex.exec(code)) !== null) {
+        implMatch[1].split(",").forEach(item => {
+          const trimmed = item.trim().split(/\s+/)[0];
+          if (trimmed && /^[A-Z]/.test(trimmed)) dynamicInterfaces.add(trimmed);
+        });
+      }
+      const interfaceRegex = /interface\s+([A-Za-z0-9_$]+)/g;
+      let ifcMatch;
+      while ((ifcMatch = interfaceRegex.exec(code)) !== null) {
+        dynamicInterfaces.add(ifcMatch[1]);
+      }
+
+      return lines.map((line) => {
+        const lineStartOffset = globalCharOffset;
+        globalCharOffset += line.length + 1;
+        if (!line.trim() && !inBlockComment) return "";
+
+        let output = "";
+        let i = 0;
+        let bracketDepth = 0;
+
+        while (i < line.length) {
+          // Block comment continuation
+          if (inBlockComment) {
+            const endIdx = line.indexOf("*/", i);
+            const content = endIdx === -1 ? line.slice(i) : line.slice(i, endIdx + 2);
+            const cls = isDocComment ? "tok-doc" : "tok-cmt";
+
+            if (isDocComment) {
+              // Highlight @param, @return, @see in doc comments
+              const formattedDoc = escapeHtml(content)
+                .replace(/(@[a-zA-Z]+)(\s+)([a-zA-Z0-9_$]+)/g, '<span class="tok-ann">$1</span>$2<span class="tok-param">$3</span>')
+                .replace(/(@[a-zA-Z]+)/g, '<span class="tok-ann">$1</span>');
+              output += `<span class="${cls}">${formattedDoc}</span>`;
+            } else {
+              output += `<span class="${cls}">${escapeHtml(content)}</span>`;
+            }
+
+            if (endIdx === -1) {
+              break;
+            } else {
+              i = endIdx + 2;
+              inBlockComment = false;
+              isDocComment = false;
+              continue;
+            }
+          }
+
+          // Single-line or start of block comment
+          if (line.slice(i, i + 2) === "//") {
+            output += `<span class="tok-cmt">${escapeHtml(line.slice(i))}</span>`;
+            break;
+          }
+          if (line.slice(i, i + 2) === "/*") {
+            const isDoc = line.slice(i, i + 3) === "/**";
+            const endIdx = line.indexOf("*/", i + 2);
+            if (endIdx === -1) {
+              inBlockComment = true;
+              isDocComment = isDoc;
+              const content = line.slice(i);
+              output += `<span class="${isDoc ? 'tok-doc' : 'tok-cmt'}">${escapeHtml(content)}</span>`;
+              break;
+            } else {
+              const content = line.slice(i, endIdx + 2);
+              if (isDoc) {
+                const formattedDoc = escapeHtml(content)
+                  .replace(/(@[a-zA-Z]+)(\s+)([a-zA-Z0-9_$]+)/g, '<span class="tok-ann">$1</span>$2<span class="tok-param">$3</span>')
+                  .replace(/(@[a-zA-Z]+)/g, '<span class="tok-ann">$1</span>');
+                output += `<span class="tok-doc">${formattedDoc}</span>`;
+              } else {
+                output += `<span class="tok-cmt">${escapeHtml(content)}</span>`;
+              }
+              i = endIdx + 2;
+              continue;
+            }
+          }
+
+          // Regular expression literals in JS (e.g. /^v\d+$/i)
+          if (lang === "js" && line[i] === "/" && line[i + 1] !== "/" && line[i + 1] !== "*") {
+            const prevChar = i > 0 ? line.slice(0, i).trim().slice(-1) : "";
+            if (!prevChar || /[=(:,;[!]/.test(prevChar)) {
+              let regEnd = i + 1;
+              while (regEnd < line.length) {
+                if (line[regEnd] === "\\" && regEnd + 1 < line.length) {
+                  regEnd += 2;
+                  continue;
+                }
+                if (line[regEnd] === "/") {
+                  regEnd++;
+                  while (regEnd < line.length && /[a-z]/i.test(line[regEnd])) regEnd++;
+                  break;
+                }
+                regEnd++;
+              }
+              const regText = line.slice(i, regEnd);
+              output += `<span class="tok-reg">${escapeHtml(regText)}</span>`;
+              i = regEnd;
+              continue;
+            }
+          }
+
+          // Strings (quotes or template literals)
+          if (line[i] === '"' || line[i] === "'" || line[i] === "`") {
+            const quote = line[i];
+            let strEnd = i + 1;
+            while (strEnd < line.length) {
+              if (line[strEnd] === "\\" && strEnd + 1 < line.length) {
+                strEnd += 2;
+                continue;
+              }
+              if (line[strEnd] === quote) {
+                strEnd++;
+                break;
+              }
+              strEnd++;
+            }
+            const rawStr = line.slice(i, strEnd);
+            // Highlight escape characters inside strings
+            const formattedStr = escapeHtml(rawStr).replace(
+              /(\\[nrtbfav0"'\\]|\\u[0-9a-fA-F]{4})/g,
+              `<span class="tok-esc">$1</span>`
+            );
+            output += `<span class="tok-str">${formattedStr}</span>`;
+            i = strEnd;
+            continue;
+          }
+
+          // Annotations @Override, @Deprecated
+          if (line[i] === "@" && /[a-zA-Z]/.test(line[i + 1] || "")) {
+            let annEnd = i + 1;
+            while (annEnd < line.length && /\w/.test(line[annEnd])) annEnd++;
+            output += `<span class="tok-ann">${escapeHtml(line.slice(i, annEnd))}</span>`;
+            i = annEnd;
+            continue;
+          }
+
+          // Numbers (Hex, float, int)
+          if (/\d/.test(line[i]) && (i === 0 || /[\s,;([+\-*/=<>!:]/.test(line[i - 1]))) {
+            let numEnd = i;
+            while (numEnd < line.length && /[\d.xXa-fA-F_fFdDlL]/.test(line[numEnd])) numEnd++;
+            output += `<span class="tok-num">${escapeHtml(line.slice(i, numEnd))}</span>`;
+            i = numEnd;
+            continue;
+          }
+
+          // Identifiers, keywords, types, interfaces, methods, parameters
+          if (/[a-zA-Z_$]/.test(line[i])) {
+            let idEnd = i;
+            while (idEnd < line.length && /[\w$]/.test(line[idEnd])) idEnd++;
+            const word = line.slice(i, idEnd);
+            const nextChar = line.slice(idEnd).trim()[0] || "";
+            const prevChar = i > 0 ? line.slice(0, i).trim().slice(-1) : "";
+
+            // Check if preceded by '.' (property access, unless followed by '(' which makes it a method)
+            const isDotted = prevChar === ".";
+
+            if (keywords.has(word)) {
+              output += `<span class="tok-kwd">${escapeHtml(word)}</span>`;
+            } else if (booleans.has(word)) {
+              output += `<span class="tok-bool">${escapeHtml(word)}</span>`;
+            } else if (nextChar === "(") {
+              // Function or method call / definition
+              output += `<span class="tok-fn">${escapeHtml(word)}</span>`;
+            } else if (isDotted) {
+              // Object property or member (e.g. System.out, this.isInitialized)
+              output += `<span class="tok-prop">${escapeHtml(word)}</span>`;
+            } else if (KNOWN_INTERFACES.has(word) || dynamicInterfaces.has(word) || /^[I][A-Z]/.test(word) || /(Listener|Handler|Provider|Callback)$/.test(word)) {
+              // Interfaces (Runnable, Serializable, Event, ThemeListener, etc.)
+              output += `<span class="tok-ifc">${escapeHtml(word)}</span>`;
+            } else if (/^[A-Z][\w$]*$/.test(word)) {
+              // Types and Classes (String, Double, System, ThemeService, BaseService, ArrayList)
+              output += `<span class="tok-typ">${escapeHtml(word)}</span>`;
+            } else if (KNOWN_PARAMS.has(word)) {
+              // Method parameters (args, workerName, maxRetries, themeId, isForced, active, context)
+              output += `<span class="tok-param">${escapeHtml(word)}</span>`;
+            } else if (KNOWN_PROPS.has(word)) {
+              // Known class fields / properties (THEME_NAME, VERSION, activeCount, isInitialized)
+              output += `<span class="tok-prop">${escapeHtml(word)}</span>`;
+            } else {
+              // Local variables (tokens, isFirst, i, res)
+              output += `<span class="tok-var">${escapeHtml(word)}</span>`;
+            }
+
+            i = idEnd;
+            continue;
+          }
+
+          // Rainbow Brackets & Bracket Matching
+          if (/[{}()[\]]/.test(line[i])) {
+            const ch = line[i];
+            const cls = (bracketDepth % 3 === 0) ? "tok-b1" : (bracketDepth % 3 === 1) ? "tok-b2" : "tok-b3";
+            const isMatched = matchedIndices && matchedIndices.has(lineStartOffset + i);
+            const matchCls = isMatched ? " tok-bracket-match" : "";
+            output += `<span class="${cls}${matchCls}">${escapeHtml(ch)}</span>`;
+            if (/[{([]/.test(ch)) bracketDepth++;
+            else if (bracketDepth > 0) bracketDepth--;
+            i++;
+            continue;
+          }
+
+          // Multi-char & single-char Operators
+          if (/[+\-*/%=!&|<>?:^~]/.test(line[i])) {
+            let opEnd = i;
+            while (opEnd < line.length && /[+\-*/%=!&|<>?:^~]/.test(line[opEnd])) opEnd++;
+            output += `<span class="tok-op">${escapeHtml(line.slice(i, opEnd))}</span>`;
+            i = opEnd;
+            continue;
+          }
+
+          // Punctuation
+          if (/[;,.]/.test(line[i])) {
+            output += `<span class="tok-punc">${escapeHtml(line[i])}</span>`;
+            i++;
+            continue;
+          }
+
+          // Default character
+          output += escapeHtml(line[i]);
+          i++;
+        }
+
+        return output;
+      }).join("\n");
+    }
+
+    // Bracket Match Pair Finder
+    function findMatchingBrackets(text, pos) {
+      if (!text) return new Set();
+      const pairs = { '(': ')', ')': '(', '{': '}', '}': '{', '[': ']', ']': '[' };
+      let bracketPos = -1;
+      let bracketChar = '';
+
+      if (pairs[text[pos]]) {
+        bracketPos = pos;
+        bracketChar = text[pos];
+      } else if (pairs[text[pos - 1]]) {
+        bracketPos = pos - 1;
+        bracketChar = text[pos - 1];
+      }
+
+      if (bracketPos === -1) {
+        // Default to showing outer class braces so editorBracketMatch.border is visible
+        const firstOpen = text.indexOf("{");
+        const lastClose = text.lastIndexOf("}");
+        if (firstOpen !== -1 && lastClose !== -1) {
+          return new Set([firstOpen, lastClose]);
+        }
+        return new Set();
+      }
+
+      const isOpen = "({[".includes(bracketChar);
+      const targetChar = pairs[bracketChar];
+      let depth = 0;
+      const dir = isOpen ? 1 : -1;
+      let idx = bracketPos + dir;
+
+      while (idx >= 0 && idx < text.length) {
+        if (text[idx] === bracketChar) {
+          depth++;
+        } else if (text[idx] === targetChar) {
+          if (depth === 0) {
+            return new Set([bracketPos, idx]);
+          }
+          depth--;
+        }
+        idx += dir;
+      }
+
+      return new Set([bracketPos]);
+    }
+
+    function inspectTokenAtCursor() {
+      const pos = textarea.selectionStart;
+      const text = textarea.value;
+      const chip = document.getElementById("token-inspector-chip");
+      if (!chip || !text) return;
+
+      let start = pos;
+      while (start > 0 && /[\w$@]/.test(text[start - 1])) start--;
+      let end = pos;
+      while (end < text.length && /[\w$@]/.test(text[end])) end++;
+      const word = text.slice(start, end).trim();
+
+      if (word) {
+        let tokenName = "Variable";
+        let targetId = "syn-variable";
+
+        if (KNOWN_INTERFACES.has(word) || /^[I][A-Z]/.test(word) || /(Listener|Handler|Provider|Callback)$/.test(word)) {
+          tokenName = "Interface";
+          targetId = "syn-interface";
+        } else if (word.startsWith("@")) {
+          tokenName = "Annotation";
+          targetId = "syn-annotation";
+        } else if (new Set(["public", "private", "protected", "static", "final", "class", "interface", "implements", "extends", "return", "if", "else", "for", "while", "void", "int", "boolean", "double", "new", "this", "const", "let", "function"]).has(word)) {
+          tokenName = "Keyword";
+          targetId = "syn-keyword";
+        } else if (new Set(["true", "false", "null", "undefined"]).has(word)) {
+          tokenName = "Boolean / Null";
+          targetId = "syn-boolean";
+        } else if (/^[A-Z]/.test(word)) {
+          tokenName = "Type / Class";
+          targetId = "syn-type";
+        } else if (KNOWN_PARAMS.has(word)) {
+          tokenName = "Parameter";
+          targetId = "syn-parameter";
+        } else if (KNOWN_PROPS.has(word)) {
+          tokenName = "Property / Field";
+          targetId = "syn-property";
+        } else if (text[end] === "(") {
+          tokenName = "Function / Method";
+          targetId = "syn-function";
+        }
+
+        const curColor = getComputedStyle(document.documentElement).getPropertyValue(`--${targetId}`).trim();
+        chip.innerHTML = `<span>Inspecting: <strong>${tokenName}</strong> (${escapeHtml(word)}) <span style="display:inline-block;width:9px;height:9px;background:${curColor};border-radius:2px;vertical-align:middle;margin:0 2px;"></span> ${curColor}</span> <span style="text-decoration:underline;margin-left:4px;">Configure &rarr;</span>`;
+        chip.onclick = () => jumpToSetting("syntax", targetId);
+        return;
+      }
+
+      const lineStart = text.lastIndexOf("\n", pos - 1) + 1;
+      const lineEnd = text.indexOf("\n", pos);
+      const lineText = text.slice(lineStart, lineEnd === -1 ? text.length : lineEnd);
+      if (lineText.trim().startsWith("//") || lineText.includes("/*")) {
+        const curColor = getComputedStyle(document.documentElement).getPropertyValue("--syn-comment").trim();
+        chip.innerHTML = `<span>Inspecting: <strong>Comment</strong> <span style="display:inline-block;width:9px;height:9px;background:${curColor};border-radius:2px;vertical-align:middle;margin:0 2px;"></span> ${curColor}</span> <span style="text-decoration:underline;margin-left:4px;">Configure &rarr;</span>`;
+        chip.onclick = () => jumpToSetting("syntax", "syn-comment");
+        return;
+      }
+
+      chip.textContent = "Click Any Token In Code To Inspect";
+      chip.onclick = null;
+    }
+
+    function jumpToSetting(tabName, rowId) {
+      document.querySelectorAll(".nav-tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tabName));
+      document.querySelectorAll(".tab-section").forEach(sec => sec.classList.add("hidden"));
+      const targetSec = document.getElementById(`section-${tabName}`);
+      if (targetSec) targetSec.classList.remove("hidden");
+
+      const picker = document.getElementById(`pick-${rowId}`);
+      const row = picker ? picker.closest(".color-row") : document.getElementById(`hex-${rowId}`)?.closest(".color-row");
+      if (row) {
+        row.scrollIntoView({ behavior: "smooth", block: "center" });
+        row.classList.remove("highlight-flash");
+        void row.offsetWidth;
+        row.classList.add("highlight-flash");
+      }
+    }
+
+    function setToggleStyle(targetId, styleType, isActive) {
+      const btn = document.getElementById(`btn-${styleType}-${targetId}`);
+      if (btn) {
+        btn.classList.toggle("active", isActive);
+      }
+      if (styleType === "bold") {
+        document.documentElement.style.setProperty(`--${targetId}-weight`, isActive ? "bold" : "normal");
+      } else if (styleType === "italic") {
+        document.documentElement.style.setProperty(`--${targetId}-style`, isActive ? "italic" : "normal");
+      }
+    }
+
+    function updateEditor() {
+      const code = textarea.value;
+      const lines = code.split("\n");
+
+      // Update Gutter
+      gutter.innerHTML = lines.map((_, i) => `<div class="gutter-num" id="ln-${i + 1}">${i + 1}</div>`).join("");
+
+      // Update Live Highlight with matching brackets
+      const matchedIndices = findMatchingBrackets(code, textarea.selectionStart);
+      highlightLayer.innerHTML = tokenizeCode(code, currentLang, matchedIndices);
+    }
+
+    function syncScroll() {
+      highlightLayer.scrollTop = textarea.scrollTop;
+      highlightLayer.scrollLeft = textarea.scrollLeft;
+      gutter.scrollTop = textarea.scrollTop;
+      const activeLineBg = document.getElementById("active-line-bg");
+      if (activeLineBg) {
+        activeLineBg.style.transform = `translateY(-${textarea.scrollTop}px)`;
+      }
+    }
+
+    function updateCursorPos() {
+      const pos = textarea.selectionStart;
+      const text = textarea.value.slice(0, pos);
+      const lines = text.split("\n");
+      const currentLine = lines.length;
+      const currentCol = lines[lines.length - 1].length + 1;
+
+      document.getElementById("pos-tracker").textContent = `Ln ${currentLine}, Col ${currentCol}`;
+
+      document.querySelectorAll(".gutter-num").forEach(el => el.classList.remove("active"));
+      const activeNum = document.getElementById(`ln-${currentLine}`);
+      if (activeNum) activeNum.classList.add("active");
+
+      // Update active line highlight background bar position
+      const activeLineBg = document.getElementById("active-line-bg");
+      if (activeLineBg) {
+        activeLineBg.style.top = (16 + (currentLine - 1) * 22) + "px";
+      }
+
+      // Update matching brackets on cursor move
+      const matchedIndices = findMatchingBrackets(textarea.value, pos);
+      highlightLayer.innerHTML = tokenizeCode(textarea.value, currentLang, matchedIndices);
+
+      // Inspect token under cursor
+      inspectTokenAtCursor();
+    }
+
+    // Set Color
+    function setColor(id, val) {
+      const def = COLOR_DEFS.find(d => d.id === id);
+      if (!def) return;
+
+      document.documentElement.style.setProperty(def.var, val);
+
+      const picker = document.getElementById(`pick-${id}`);
+      const hex = document.getElementById(`hex-${id}`);
+
+      if (picker && picker.value.toUpperCase() !== val.toUpperCase()) picker.value = val;
+      if (hex && hex.value.toUpperCase() !== val.toUpperCase()) hex.value = val;
+    }
+
+    function applyPreset(name) {
+      const preset = PRESETS[name];
+      if (!preset) return;
+
+      for (const [id, val] of Object.entries(preset)) {
+        setColor(id, val);
+      }
+
+      document.querySelectorAll(".preset-card").forEach(c => {
+        c.classList.toggle("active", c.dataset.preset === name);
+      });
+    }
+
+    // Bind Controls
+    function setupColorControls() {
+      COLOR_DEFS.forEach(def => {
+        const picker = document.getElementById(`pick-${def.id}`);
+        const hex = document.getElementById(`hex-${def.id}`);
+
+        if (picker) {
+          picker.addEventListener("input", (e) => {
+            setColor(def.id, e.target.value.toUpperCase());
+          });
+        }
+
+        if (hex) {
+          hex.addEventListener("input", (e) => {
+            let v = e.target.value.trim();
+            if (!v.startsWith("#")) v = "#" + v;
+            if (/^#[0-9A-Fa-f]{6}$/.test(v)) {
+              setColor(def.id, v.toUpperCase());
+            }
+          });
+        }
+      });
+
+      // Universal Bold & Italic Toggles across all syntax tokens
+      document.querySelectorAll(".toggle-btn[data-target]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          btn.classList.toggle("active");
+          const target = btn.dataset.target;
+          const styleType = btn.dataset.style;
+          const isActive = btn.classList.contains("active");
+
+          if (styleType === "bold") {
+            document.documentElement.style.setProperty(`--${target}-weight`, isActive ? "bold" : "normal");
+          } else if (styleType === "italic") {
+            document.documentElement.style.setProperty(`--${target}-style`, isActive ? "italic" : "normal");
+          }
+        });
+      });
+
+      // Sidebar Tab Switching
+      document.querySelectorAll(".nav-tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".nav-tab-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+
+          const tab = btn.dataset.tab;
+          document.querySelectorAll(".tab-section").forEach(sec => sec.classList.add("hidden"));
+          const target = document.getElementById(`section-${tab}`);
+          if (target) target.classList.remove("hidden");
+        });
+      });
+
+      // Preset click
+      document.querySelectorAll(".preset-card").forEach(card => {
+        card.addEventListener("click", () => {
+          applyPreset(card.dataset.preset);
+        });
+      });
+
+      // Filter search
+      const searchInput = document.getElementById("search-filter");
+      searchInput.addEventListener("input", (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        document.querySelectorAll(".color-row").forEach(row => {
+          const text = (row.dataset.search || "") + " " + row.textContent.toLowerCase();
+          row.style.display = (!query || text.includes(query)) ? "flex" : "none";
+        });
+      });
+    }
+
+    // Setup Live Textarea Events
+    function setupEditor() {
+      textarea.value = INITIAL_CODE[currentLang];
+      updateEditor();
+      updateCursorPos();
+
+      textarea.addEventListener("input", () => {
+        updateEditor();
+      });
+
+      textarea.addEventListener("scroll", syncScroll);
+
+      textarea.addEventListener("click", updateCursorPos);
+      textarea.addEventListener("keyup", updateCursorPos);
+
+      // Tab key indent
+      textarea.addEventListener("keydown", (e) => {
+        if (e.key === "Tab") {
+          e.preventDefault();
+          const start = textarea.selectionStart;
+          const end = textarea.selectionEnd;
+          textarea.value = textarea.value.substring(0, start) + "    " + textarea.value.substring(end);
+          textarea.selectionStart = textarea.selectionEnd = start + 4;
+          updateEditor();
+          updateCursorPos();
+        }
+      });
+
+      // Sample Tabs
+      document.querySelectorAll(".editor-tab").forEach(tab => {
+        tab.addEventListener("click", () => {
+          document.querySelectorAll(".editor-tab").forEach(t => t.classList.remove("active"));
+          tab.classList.add("active");
+          const sample = tab.dataset.sample;
+          currentLang = sample;
+          document.getElementById("lang-select").value = sample;
+          document.getElementById("lang-label").textContent = sample === "java" ? "Java" : sample === "js" ? "JavaScript" : "JSON";
+          textarea.value = INITIAL_CODE[sample] || "";
+          updateEditor();
+          updateCursorPos();
+        });
+      });
+
+      // Lang dropdown
+      document.getElementById("lang-select").addEventListener("change", (e) => {
+        currentLang = e.target.value;
+        document.getElementById("lang-label").textContent = currentLang.toUpperCase();
+        document.querySelectorAll(".editor-tab").forEach(t => {
+          t.classList.toggle("active", t.dataset.sample === currentLang);
+        });
+        if (INITIAL_CODE[currentLang]) {
+          textarea.value = INITIAL_CODE[currentLang];
+        }
+        updateEditor();
+      });
+    }
+
+    // Generate JSON Export
+    function generateFullThemeJson() {
+      const getVal = (id) => {
+        const def = COLOR_DEFS.find(d => d.id === id);
+        if (!def) return "#000000";
+        return document.getElementById(`hex-${id}`)?.value || def.default;
+      };
+
+      const getStyle = (targetId) => {
+        const isBold = document.getElementById(`btn-bold-${targetId}`)?.classList.contains("active") ?? false;
+        const isItalic = document.getElementById(`btn-italic-${targetId}`)?.classList.contains("active") ?? false;
+        return {
+          isBold,
+          isItalic,
+          fontStyle: isBold ? (isItalic ? "bold italic" : "bold") : (isItalic ? "italic" : "")
+        };
+      };
+
+      const output = {
+        "name": "InsynVsTheme",
+        "type": "dark",
+        "semanticHighlighting": true,
+        "colors": {
+          "editor.background": getVal("editor-bg"),
+          "editor.foreground": getVal("editor-fg"),
+          "editorCursor.foreground": getVal("cursor-color"),
+          "editorLineNumber.foreground": getVal("line-number"),
+          "editorLineNumber.activeForeground": getVal("line-number-active"),
+          "editor.lineHighlightBackground": getVal("line-highlight"),
+          "editor.selectionBackground": getVal("selection-bg"),
+          "editorBracketMatch.border": getVal("bracket-match-border"),
+          "editorBracketHighlight.foreground1": getVal("syn-bracket-1"),
+          "editorBracketHighlight.foreground2": getVal("syn-bracket-2"),
+          "editorBracketHighlight.foreground3": getVal("syn-bracket-3"),
+          "tab.activeBorderTop": getVal("wb-tab-border"),
+          "statusBar.background": getVal("wb-statusbar-bg"),
+          "statusBar.foreground": getVal("wb-statusbar-fg"),
+          "list.warningForeground": getVal("wb-ui-warning"),
+          "list.errorForeground": getVal("wb-ui-error"),
+          "errorForeground": getVal("wb-ui-error")
+        },
+        "tokenColors": [
+          {
+            "name": "Comments",
+            "scope": ["comment", "punctuation.definition.comment"],
+            "settings": {
+              "foreground": getVal("syn-comment"),
+              ...(getStyle("syn-comment").fontStyle ? { "fontStyle": getStyle("syn-comment").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Doc Comments",
+            "scope": ["comment.block.documentation", "comment.block.javadoc"],
+            "settings": {
+              "foreground": getVal("syn-doc"),
+              ...(getStyle("syn-doc").fontStyle ? { "fontStyle": getStyle("syn-doc").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Plain text",
+            "scope": ["source", "text"],
+            "settings": { "foreground": getVal("editor-fg") }
+          },
+          {
+            "name": "Keywords",
+            "scope": ["keyword", "storage.type", "storage.modifier", "keyword.control"],
+            "settings": {
+              "foreground": getVal("syn-keyword"),
+              ...(getStyle("syn-keyword").fontStyle ? { "fontStyle": getStyle("syn-keyword").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Types and classes",
+            "scope": ["entity.name.type", "support.type", "support.class", "storage.type.class"],
+            "settings": {
+              "foreground": getVal("syn-type"),
+              ...(getStyle("syn-type").fontStyle ? { "fontStyle": getStyle("syn-type").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Interfaces (Runnable, Serializable, Event)",
+            "scope": ["entity.name.type.interface", "entity.name.type.interface.java", "storage.type.interface"],
+            "settings": {
+              "foreground": getVal("syn-interface"),
+              ...(getStyle("syn-interface").fontStyle ? { "fontStyle": getStyle("syn-interface").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Functions and methods",
+            "scope": ["entity.name.function", "support.function", "meta.function-call", "variable.function"],
+            "settings": {
+              "foreground": getVal("syn-function"),
+              ...(getStyle("syn-function").fontStyle ? { "fontStyle": getStyle("syn-function").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Variables",
+            "scope": ["variable", "entity.name.variable", "support.variable", "variable.other"],
+            "settings": {
+              "foreground": getVal("syn-variable"),
+              ...(getStyle("syn-variable").fontStyle ? { "fontStyle": getStyle("syn-variable").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Parameters",
+            "scope": ["variable.parameter", "variable.parameter.function"],
+            "settings": {
+              "foreground": getVal("syn-parameter"),
+              ...(getStyle("syn-parameter").fontStyle ? { "fontStyle": getStyle("syn-parameter").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Strings",
+            "scope": ["string", "string.quoted", "string.template"],
+            "settings": {
+              "foreground": getVal("syn-string"),
+              ...(getStyle("syn-string").fontStyle ? { "fontStyle": getStyle("syn-string").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Escape characters",
+            "scope": ["constant.character.escape"],
+            "settings": {
+              "foreground": getVal("syn-escape"),
+              ...(getStyle("syn-escape").fontStyle ? { "fontStyle": getStyle("syn-escape").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Numbers and constants",
+            "scope": ["constant.numeric", "constant.language", "constant.character", "constant.other"],
+            "settings": {
+              "foreground": getVal("syn-number"),
+              ...(getStyle("syn-number").fontStyle ? { "fontStyle": getStyle("syn-number").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Booleans and Null",
+            "scope": ["constant.language.boolean", "constant.language.null"],
+            "settings": {
+              "foreground": getVal("syn-boolean"),
+              ...(getStyle("syn-boolean").fontStyle ? { "fontStyle": getStyle("syn-boolean").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Operators and punctuation",
+            "scope": ["keyword.operator", "punctuation", "meta.brace", "meta.delimiter"],
+            "settings": {
+              "foreground": getVal("syn-operator"),
+              ...(getStyle("syn-operator").fontStyle ? { "fontStyle": getStyle("syn-operator").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Attributes and properties",
+            "scope": ["entity.other.attribute-name", "support.type.property-name", "meta.attribute", "variable.other.property"],
+            "settings": {
+              "foreground": getVal("syn-property"),
+              ...(getStyle("syn-property").fontStyle ? { "fontStyle": getStyle("syn-property").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Annotations",
+            "scope": ["entity.name.type.annotation", "punctuation.definition.annotation", "meta.declaration.annotation"],
+            "settings": {
+              "foreground": getVal("syn-annotation"),
+              ...(getStyle("syn-annotation").fontStyle ? { "fontStyle": getStyle("syn-annotation").fontStyle } : {})
+            }
+          },
+          {
+            "name": "Regular Expressions",
+            "scope": ["string.regexp"],
+            "settings": {
+              "foreground": getVal("syn-regex"),
+              ...(getStyle("syn-regex").fontStyle ? { "fontStyle": getStyle("syn-regex").fontStyle } : {})
+            }
+          }
+        ],
+        "semanticTokenColors": {
+          "namespace": getVal("syn-type"),
+          "type": { "foreground": getVal("syn-type"), "bold": getStyle("syn-type").isBold, "italic": getStyle("syn-type").isItalic },
+          "class": { "foreground": getVal("syn-type"), "bold": getStyle("syn-type").isBold, "italic": getStyle("syn-type").isItalic },
+          "enum": { "foreground": getVal("syn-type"), "bold": getStyle("syn-type").isBold, "italic": getStyle("syn-type").isItalic },
+          "interface": { "foreground": getVal("syn-interface"), "bold": getStyle("syn-interface").isBold, "italic": getStyle("syn-interface").isItalic },
+          "struct": { "foreground": getVal("syn-type"), "bold": getStyle("syn-type").isBold, "italic": getStyle("syn-type").isItalic },
+          "parameter": { "foreground": getVal("syn-parameter"), "bold": getStyle("syn-parameter").isBold, "italic": getStyle("syn-parameter").isItalic },
+          "variable": { "foreground": getVal("syn-variable"), "bold": getStyle("syn-variable").isBold, "italic": getStyle("syn-variable").isItalic },
+          "property": { "foreground": getVal("syn-property"), "bold": getStyle("syn-property").isBold, "italic": getStyle("syn-property").isItalic },
+          "function": { "foreground": getVal("syn-function"), "bold": getStyle("syn-function").isBold, "italic": getStyle("syn-function").isItalic },
+          "method": { "foreground": getVal("syn-function"), "bold": getStyle("syn-function").isBold, "italic": getStyle("syn-function").isItalic },
+          "keyword": { "foreground": getVal("syn-keyword"), "bold": getStyle("syn-keyword").isBold, "italic": getStyle("syn-keyword").isItalic },
+          "comment": { "foreground": getVal("syn-comment"), "bold": getStyle("syn-comment").isBold, "italic": getStyle("syn-comment").isItalic },
+          "string": { "foreground": getVal("syn-string"), "bold": getStyle("syn-string").isBold, "italic": getStyle("syn-string").isItalic },
+          "number": { "foreground": getVal("syn-number"), "bold": getStyle("syn-number").isBold, "italic": getStyle("syn-number").isItalic },
+          "operator": { "foreground": getVal("syn-operator"), "bold": getStyle("syn-operator").isBold, "italic": getStyle("syn-operator").isItalic }
+        }
+      };
+
+      return JSON.stringify(output, null, 2);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    // Modal & Export bindings
+    document.getElementById("btn-export-json").addEventListener("click", () => {
+      document.getElementById("modal-json").value = generateFullThemeJson();
+      document.getElementById("export-modal").classList.add("open");
+    });
+
+    document.getElementById("btn-close-modal").addEventListener("click", () => {
+      document.getElementById("export-modal").classList.remove("open");
+    });
+
+    document.getElementById("btn-copy-json").addEventListener("click", () => {
+      const json = generateFullThemeJson();
+      navigator.clipboard.writeText(json).then(() => {
+        showToast("Theme JSON Copied To Clipboard!");
+      });
+    });
+
+    document.getElementById("btn-modal-copy").addEventListener("click", () => {
+      const json = document.getElementById("modal-json").value;
+      navigator.clipboard.writeText(json).then(() => {
+        showToast("Theme JSON Copied To Clipboard!");
+      });
+    });
+
+    document.getElementById("btn-reset-current").addEventListener("click", () => {
+      applyPreset("current-dark");
+      showToast("Reset Colors To Current Dark Theme");
+    });
+
+    // Import Theme JSON Processor
+    function applyImportedJson(raw) {
+      try {
+        const data = JSON.parse(raw);
+
+        // 1. Process workbench & editor colors
+        if (data.colors && typeof data.colors === "object") {
+          const colorMap = {
+            "editor.background": "editor-bg",
+            "editor.foreground": "editor-fg",
+            "editorCursor.foreground": "cursor-color",
+            "editorLineNumber.foreground": "line-number",
+            "editorLineNumber.activeForeground": "line-number-active",
+            "editor.lineHighlightBackground": "line-highlight",
+            "editor.selectionBackground": "selection-bg",
+            "editorBracketMatch.border": "bracket-match-border",
+            "editorBracketHighlight.foreground1": "syn-bracket-1",
+            "editorBracketHighlight.foreground2": "syn-bracket-2",
+            "editorBracketHighlight.foreground3": "syn-bracket-3",
+            "tab.activeBorderTop": "wb-tab-border",
+            "statusBar.background": "wb-statusbar-bg",
+            "statusBar.foreground": "wb-statusbar-fg",
+            "list.warningForeground": "wb-ui-warning",
+            "list.errorForeground": "wb-ui-error",
+            "errorForeground": "wb-ui-error"
+          };
+
+          for (const [key, id] of Object.entries(colorMap)) {
+            if (data.colors[key]) {
+              setColor(id, data.colors[key].toUpperCase());
+            }
+          }
+        }
+
+        // 2. Process tokenColors
+        if (Array.isArray(data.tokenColors)) {
+          data.tokenColors.forEach(item => {
+            if (!item.settings) return;
+            const scopes = Array.isArray(item.scope) ? item.scope : (typeof item.scope === "string" ? item.scope.split(/,\s*/) : []);
+            const fg = item.settings.foreground;
+            const fontStyle = item.settings.fontStyle;
+
+            scopes.forEach(scope => {
+              let targetId = null;
+              if (scope.includes("interface")) targetId = "syn-interface";
+              else if (scope.includes("documentation") || scope.includes("javadoc")) targetId = "syn-doc";
+              else if (scope.includes("comment")) targetId = "syn-comment";
+              else if (scope.includes("entity.name.function") || scope.includes("support.function")) targetId = "syn-function";
+              else if (scope.includes("variable.parameter")) targetId = "syn-parameter";
+              else if (scope.includes("property") || scope.includes("attribute")) targetId = "syn-property";
+              else if (scope.includes("variable")) targetId = "syn-variable";
+              else if (scope.includes("escape")) targetId = "syn-escape";
+              else if (scope.includes("regexp")) targetId = "syn-regex";
+              else if (scope.includes("string")) targetId = "syn-string";
+              else if (scope.includes("numeric")) targetId = "syn-number";
+              else if (scope.includes("boolean") || scope.includes("null")) targetId = "syn-boolean";
+              else if (scope.includes("annotation")) targetId = "syn-annotation";
+              else if (scope.includes("operator")) targetId = "syn-operator";
+              else if (scope.includes("punctuation")) targetId = "syn-punctuation";
+              else if (scope.includes("type") || scope.includes("class")) targetId = "syn-type";
+              else if (scope.includes("keyword") || scope.includes("storage")) targetId = "syn-keyword";
+
+              if (targetId) {
+                if (fg) setColor(targetId, fg.toUpperCase());
+                if (fontStyle !== undefined) {
+                  const isBold = fontStyle.toLowerCase().includes("bold");
+                  const isItalic = fontStyle.toLowerCase().includes("italic");
+                  setToggleStyle(targetId, "bold", isBold);
+                  setToggleStyle(targetId, "italic", isItalic);
+                }
+              }
+            });
+          });
+        }
+
+        // 3. Process semanticTokenColors
+        if (data.semanticTokenColors && typeof data.semanticTokenColors === "object") {
+          for (const [key, val] of Object.entries(data.semanticTokenColors)) {
+            let targetId = null;
+            if (key === "interface") targetId = "syn-interface";
+            else if (key === "class" || key === "type") targetId = "syn-type";
+            else if (key === "parameter") targetId = "syn-parameter";
+            else if (key === "variable") targetId = "syn-variable";
+            else if (key === "function" || key === "method") targetId = "syn-function";
+            else if (key === "keyword") targetId = "syn-keyword";
+            else if (key === "string") targetId = "syn-string";
+            else if (key === "number") targetId = "syn-number";
+            else if (key === "comment") targetId = "syn-comment";
+
+            if (targetId) {
+              if (typeof val === "string") {
+                setColor(targetId, val.toUpperCase());
+              } else if (typeof val === "object" && val !== null) {
+                if (val.foreground) setColor(targetId, val.foreground.toUpperCase());
+                if (val.bold !== undefined) setToggleStyle(targetId, "bold", !!val.bold);
+                if (val.italic !== undefined) setToggleStyle(targetId, "italic", !!val.italic);
+              }
+            }
+          }
+        }
+
+        updateEditor();
+        document.getElementById("import-modal").classList.remove("open");
+        showToast("Theme Successfully Imported!");
+      } catch (err) {
+        alert("Error Parsing Theme JSON: " + err.message);
+      }
+    }
+
+    // Import Modal bindings
+    document.getElementById("btn-import-json").addEventListener("click", () => {
+      document.getElementById("import-modal").classList.add("open");
+    });
+
+    document.getElementById("btn-close-import-modal").addEventListener("click", () => {
+      document.getElementById("import-modal").classList.remove("open");
+    });
+
+    document.getElementById("btn-browse-file").addEventListener("click", () => {
+      document.getElementById("import-file-input").click();
+    });
+
+    document.getElementById("import-file-input").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        document.getElementById("import-json-text").value = event.target.result;
+        applyImportedJson(event.target.result);
+      };
+      reader.readAsText(file);
+    });
+
+    document.getElementById("btn-apply-import").addEventListener("click", () => {
+      const text = document.getElementById("import-json-text").value.trim();
+      if (!text) {
+        alert("Please Select Or Paste Theme JSON Content First.");
+        return;
+      }
+      applyImportedJson(text);
+    });
+
+    // Initialize Studio
+    setupColorControls();
+    setupEditor();
+    applyPreset("current-dark");
+  </script>
+</body>
+</html>

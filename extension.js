@@ -1,6 +1,6 @@
 const vscode = require("vscode");
 
-const THEME_NAMES = new Set(["InsynVsTheme", "InsynVsTheme Colorful"]);
+const THEME_NAMES = new Set(["InsynVsTheme", "InsynVsTheme Colorful", "InsynVsTheme Colorful V2"]);
 const UPDATE_DELAY_MS = 25;
 const MAX_DOCUMENT_CHARS = 2_000_000_000;
 const HIGHLIGHTED_COMMENT_LINE = /^[\t ]*(?:\/\/\.|#\.)[^\r\n]*/gm;

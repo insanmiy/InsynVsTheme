@@ -52,6 +52,11 @@
         "label": "InsynVsTheme Colorful",
         "uiTheme": "vs-dark",
         "path": "./themes/InsynVsTheme-colorful-color-theme.json"
+      },
+      {
+        "label": "InsynVsTheme Colorful V2",
+        "uiTheme": "vs-dark",
+        "path": "./themes/InsynVsTheme-colorfulV2-color-theme.json"
       }
     ],
     "iconThemes": [
