@@ -5,8 +5,8 @@
   <vendor url="https://github.com/insanmiy">Insanmiy</vendor>
 
   <description><![CDATA[
-    <p>A dark navy IntelliJ IDEA theme with restrained blue and colorful variants.</p>
-    <p>Both variants use the original Insyn <code>#030812</code> editor background and orange focus accent.</p>
+    <p>A dark navy and solid black IntelliJ IDEA theme with restrained blue, colorful, and vibrant high-contrast variants.</p>
+    <p>Variants include Insyn, Insyn Colorful, and Insyn Colorful V2 with a solid black background.</p>
   ]]></description>
 
   <idea-version since-build="233"/>
@@ -17,5 +17,7 @@
                    path="/themes/Insyn.theme.json"/>
     <themeProvider id="c2a8db5a-a82f-4d3d-95c4-620ef8d7dd11"
                    path="/themes/InsynColorful.theme.json"/>
+    <themeProvider id="5a8f9476-1c7b-4dcc-bee1-f57d2c535ebb"
+                   path="/themes/InsynColorfulV2.theme.json"/>
   </extensions>
 </idea-plugin>
