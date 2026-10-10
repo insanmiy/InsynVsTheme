@@ -1,40 +1,43 @@
-# Insyn Theme for IntelliJ IDEA
+# Insyn Theme For IntelliJ IDEA
 
-This directory contains the native IntelliJ Platform theme plugin. It includes:
+Insyn Themes For IntelliJ IDEA 2023.3 And Newer.
 
-- **Insyn**, the normal blue variant.
-- **Insyn V2**, the solid black with blue syntax.
-- **Insyn Colorful**, the brighter syntax variant.
-- **Insyn Colorful V2**, the solid black high contrast variant.
-- Matching editor, console, search, diff, diagnostics, tabs, tool windows, menus, and control colors.
+## Themes
 
-The plugin supports IntelliJ Platform build 233 (IntelliJ IDEA 2023.3) and newer.
+### Dark Themes
 
-## Build without downloading dependencies
+Insyn Blue Midnight: Original Navy Theme With Blue Syntax.
 
-JDK 17 or newer and PowerShell are required:
+Insyn Blackout: Pitch Black Theme With Blue Syntax.
+
+Insyn Vivid: Navy Theme With Bright Syntax.
+
+Insyn Hyper: Pitch Black Theme With High Contrast Syntax.
+
+### Light Themes
+
+Insyn Light Blue: Pure White Theme With Deep Navy And Blue Syntax.
+
+Insyn Vivid Light: Crisp White Theme With Vibrant Multicolor Syntax.
+
+Insyn Light Flare: High Contrast Crisp White Theme With Bold Colorful Syntax.
+
+## Building
+
+Run The PowerShell Script:
 
 ```powershell
-Set-ExecutionPolicy -Scope Process Bypass
-.\build.ps1
+powershell -ExecutionPolicy Bypass -File .\build.ps1
 ```
 
-The installable ZIP is written to `build/distributions/`.
-
-## Build or run with Gradle
-
-Open this directory as a Gradle project in IntelliJ IDEA, or run these commands with JDK 21 and Gradle 9 or newer:
+Or Build Using Gradle:
 
 ```powershell
 gradle buildPlugin
-gradle runIde
 ```
 
-The Gradle build downloads an IntelliJ IDEA development instance. The PowerShell build only packages the static theme resources and works offline.
+The Output Zip File Is Located In build/distributions/.
 
-## Install
+## Installation
 
-1. Open **Settings | Plugins**.
-2. Use the gear menu and choose **Install Plugin from Disk**.
-3. Select `build/distributions/InsynVsTheme-intellij-<version>.zip`.
-4. Choose **Insyn**, **Insyn V2**, **Insyn Colorful**, or **Insyn Colorful V2** under **Settings | Appearance & Behavior | Appearance**.
+Open Settings Go To Plugins Click The Gear Icon And Select Install Plugin From Disk.

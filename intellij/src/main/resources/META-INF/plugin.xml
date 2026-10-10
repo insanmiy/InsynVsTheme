@@ -1,12 +1,13 @@
 <idea-plugin>
-  <id>com.insanmiy.insynvstheme</id>
+  <id>dev.insanmiy.insynvstheme</id>
   <name>Insyn Theme</name>
-  <version>2.1.3</version>
+  <version>2.1.4</version>
   <vendor url="https://github.com/insanmiy">Insanmiy</vendor>
 
   <description><![CDATA[
-    <p>A dark navy and solid black IntelliJ IDEA theme with restrained blue, colorful, and solid black variants.</p>
-    <p>Variants include Insyn, Insyn V2 (solid black with blue syntax), Insyn Colorful, and Insyn Colorful V2.</p>
+    <p>A suite of clean dark navy, pure black, and crisp light themes for IntelliJ IDEA.</p>
+    <p>Dark variants: Insyn Blue Midnight, Insyn Blackout, Insyn Vivid, and Insyn Hyper.</p>
+    <p>Light variants: Insyn Light Blue, Insyn Vivid Light, and Insyn Light Flare.</p>
   ]]></description>
 
   <idea-version since-build="233"/>
@@ -14,12 +15,18 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <themeProvider id="d50b43a8-4c4c-43e7-83a0-2d2811d9a7c1"
-                   path="/themes/Insyn.theme.json"/>
+                   path="/themes/InsynBlueMidnight.theme.json"/>
     <themeProvider id="14f42da5-536f-46a6-bb8b-ce052e9bba1d"
-                   path="/themes/InsynV2.theme.json"/>
+                   path="/themes/InsynBlackout.theme.json"/>
     <themeProvider id="c2a8db5a-a82f-4d3d-95c4-620ef8d7dd11"
-                   path="/themes/InsynColorful.theme.json"/>
+                   path="/themes/InsynVivid.theme.json"/>
     <themeProvider id="5a8f9476-1c7b-4dcc-bee1-f57d2c535ebb"
-                   path="/themes/InsynColorfulV2.theme.json"/>
+                   path="/themes/InsynHyper.theme.json"/>
+    <themeProvider id="118eacb4-d69c-45e7-90b5-2de95b64d8fa"
+                   path="/themes/InsynLightBlue.theme.json"/>
+    <themeProvider id="d8ed3d98-dace-4921-b57f-5dc7e9c23527"
+                   path="/themes/InsynVividLight.theme.json"/>
+    <themeProvider id="5fa0ec8d-f266-48ca-8795-7073f793e8af"
+                   path="/themes/InsynLightFlare.theme.json"/>
   </extensions>
 </idea-plugin>

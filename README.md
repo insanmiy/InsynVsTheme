@@ -6,19 +6,23 @@ InsynVsTheme Is A Dark Navy And Pure Black Theme For Visual Studio Code And Inte
 
 ## Themes
 
-InsynVsTheme: Original Navy Theme With Blue Syntax.
+### Dark Themes
 
-InsynVsTheme V2: Pitch Black Theme With Blue Syntax.
+Insyn Blue Midnight: Original Navy Theme With Blue Syntax.
 
-InsynVsTheme Colorful: Navy Theme With Bright Syntax.
+Insyn Blackout: Pitch Black Theme With Blue Syntax.
 
-InsynVsTheme Colorful V2: Pitch Black Theme With A High Contrast Syntax.
+Insyn Vivid: Navy Theme With Bright Syntax.
 
-InsynVsTheme Light: Pure White Theme With Deep Navy And Blue Syntax.
+Insyn Hyper: Pitch Black Theme With High Contrast Syntax.
 
-InsynVsTheme Light Colorful: Crisp White Theme With Vibrant Multi Color Syntax.
+### Light Themes
 
-InsynVsTheme Light Colorful V2: High Contrast Crisp White Theme With Bold Colorful Syntax.
+Insyn Light Blue: Pure White Theme With Deep Navy And Blue Syntax.
+
+Insyn Vivid Light: Crisp White Theme With Vibrant Multi Color Syntax.
+
+Insyn Light Flare: High Contrast Crisp White Theme With Bold Colorful Syntax.
 
 ## File Icons
 

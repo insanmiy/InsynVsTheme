@@ -1,9 +1,9 @@
-<scheme name="Insyn Colorful V2" version="142" parent_scheme="Darcula">
+<scheme name="Insyn Hyper" version="142" parent_scheme="Darcula">
   <meta-info>
     <property name="created">2026-10-09</property>
     <property name="ide">idea</property>
     <property name="ideVersion">2025.2</property>
-    <property name="originalScheme">Insyn Colorful V2</property>
+    <property name="originalScheme">Insyn Hyper</property>
   </meta-info>
   <colors>
     <option name="CARET_COLOR" value="ff6600" />

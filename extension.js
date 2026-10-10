@@ -3,7 +3,7 @@ const path = require("path");
 const os = require("os");
 const fs = require("fs");
 
-const THEME_NAMES = new Set(["InsynVsTheme", "InsynVsTheme Colorful", "InsynVsTheme V2"]);
+const THEME_NAMES = new Set(["Insyn Blue Midnight", "Insyn Blackout", "Insyn Vivid"]);
 const UPDATE_DELAY_MS = 25;
 const MAX_DOCUMENT_CHARS = 2_000_000_000;
 const HIGHLIGHTED_COMMENT_LINE = /^[\t ]*(?:\/\/\.|#\.)[^\r\n]*/gm;

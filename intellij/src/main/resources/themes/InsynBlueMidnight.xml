@@ -1,9 +1,9 @@
-<scheme name="Insyn" version="142" parent_scheme="Darcula">
+<scheme name="Insyn Blue Midnight" version="142" parent_scheme="Darcula">
   <meta-info>
     <property name="created">2026-09-06</property>
     <property name="ide">idea</property>
     <property name="ideVersion">2025.2</property>
-    <property name="originalScheme">Insyn</property>
+    <property name="originalScheme">Insyn Blue Midnight</property>
   </meta-info>
   <colors>
     <option name="CARET_COLOR" value="ff6f00" />

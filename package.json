@@ -2,7 +2,7 @@
   "name": "insyn-vs-theme",
   "displayName": "InsynVsTheme",
   "description": "A blue VS Code theme.",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "publisher": "insanmiy",
   "author": "Insanmiy",
   "license": "SEE LICENSE IN LICENSE",
@@ -56,39 +56,39 @@
     ],
     "themes": [
       {
-        "label": "InsynVsTheme",
+        "label": "Insyn Blue Midnight",
         "uiTheme": "vs-dark",
-        "path": "./themes/InsynVsTheme-color-theme.json"
+        "path": "./themes/InsynBlueMidnight-color-theme.json"
       },
       {
-        "label": "InsynVsTheme Colorful",
+        "label": "Insyn Blackout",
         "uiTheme": "vs-dark",
-        "path": "./themes/InsynVsTheme-colorful-color-theme.json"
+        "path": "./themes/InsynBlackout-color-theme.json"
       },
       {
-        "label": "InsynVsTheme Colorful V2",
+        "label": "Insyn Vivid",
         "uiTheme": "vs-dark",
-        "path": "./themes/InsynVsTheme-colorfulV2-color-theme.json"
+        "path": "./themes/InsynVivid-color-theme.json"
       },
       {
-        "label": "InsynVsTheme V2",
+        "label": "Insyn Hyper",
         "uiTheme": "vs-dark",
-        "path": "./themes/InsynVsTheme-v2-color-theme.json"
+        "path": "./themes/InsynHyper-color-theme.json"
       },
       {
-        "label": "InsynVsTheme Light",
+        "label": "Insyn Light Blue",
         "uiTheme": "vs",
-        "path": "./themes/InsynVsTheme-light-color-theme.json"
+        "path": "./themes/InsynLightBlue-color-theme.json"
       },
       {
-        "label": "InsynVsTheme Light Colorful",
+        "label": "Insyn Vivid Light",
         "uiTheme": "vs",
-        "path": "./themes/InsynVsTheme-light-colorful-color-theme.json"
+        "path": "./themes/InsynVividLight-color-theme.json"
       },
       {
-        "label": "InsynVsTheme Light Colorful V2",
+        "label": "Insyn Light Flare",
         "uiTheme": "vs",
-        "path": "./themes/InsynVsTheme-light-colorfulV2-color-theme.json"
+        "path": "./themes/InsynLightFlare-color-theme.json"
       }
     ],
     "iconThemes": [
