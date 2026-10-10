@@ -74,6 +74,21 @@
         "label": "InsynVsTheme V2",
         "uiTheme": "vs-dark",
         "path": "./themes/InsynVsTheme-v2-color-theme.json"
+      },
+      {
+        "label": "InsynVsTheme Light",
+        "uiTheme": "vs",
+        "path": "./themes/InsynVsTheme-light-color-theme.json"
+      },
+      {
+        "label": "InsynVsTheme Light Colorful",
+        "uiTheme": "vs",
+        "path": "./themes/InsynVsTheme-light-colorful-color-theme.json"
+      },
+      {
+        "label": "InsynVsTheme Light Colorful V2",
+        "uiTheme": "vs",
+        "path": "./themes/InsynVsTheme-light-colorfulV2-color-theme.json"
       }
     ],
     "iconThemes": [

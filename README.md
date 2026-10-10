@@ -14,6 +14,12 @@ InsynVsTheme Colorful: Navy Theme With Bright Syntax.
 
 InsynVsTheme Colorful V2: Pitch Black Theme With A High Contrast Syntax.
 
+InsynVsTheme Light: Pure White Theme With Deep Navy And Blue Syntax.
+
+InsynVsTheme Light Colorful: Crisp White Theme With Vibrant Multi Color Syntax.
+
+InsynVsTheme Light Colorful V2: High Contrast Crisp White Theme With Bold Colorful Syntax.
+
 ## File Icons
 
 Insyn File Icons And Insyn Colorful Icons.
