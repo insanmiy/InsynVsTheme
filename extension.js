@@ -88,7 +88,7 @@ async function checkForUpdates(context, { manual = false } = {}) {
       } finally {
         try {
           fs.unlinkSync(tempPath);
-        } catch (_) {}
+        } catch (_) { }
       }
     };
 
@@ -270,6 +270,6 @@ function activate(context) {
   });
 }
 
-function deactivate() {}
+function deactivate() { }
 
 module.exports = { activate, deactivate };

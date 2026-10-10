@@ -2,61 +2,58 @@
 
 ![InsynVsTheme Icon](images/icon.png)
 
-InsynVsTheme is a dark, modern theme suite crafted for Visual Studio Code and IntelliJ IDEA.
+InsynVsTheme Is A Dark Navy And Pure Black Theme For Visual Studio Code And IntelliJ IDEA.
 
-## Themes Included
+## Themes
 
-### Color Themes
+InsynVsTheme: Original Navy Theme With Blue Syntax.
 
-- **InsynVsTheme**: The original deep navy (`#030812`) theme with restrained, focused blue syntax.
-- **InsynVsTheme V2**: A solid pure-black (`#000000`) background paired with focused, restrained blue syntax highlighting.
-- **InsynVsTheme Colorful**: The deep navy background paired with vibrant, distinct syntax colors across languages.
-- **InsynVsTheme Colorful V2**: A solid pure-black (`#000000`) background paired with high-contrast, bold syntax highlighting.
+InsynVsTheme V2: Pitch Black Theme With Blue Syntax.
 
-### File Icon Themes
+InsynVsTheme Colorful: Navy Theme With Bright Syntax.
 
-- **Insyn File Icons**: Clean, monochrome file and folder icons tuned to the theme palette.
-- **Insyn Colorful Icons**: Vibrant, full-color icons with custom shapes for hundreds of extensions and filenames.
+InsynVsTheme Colorful V2: Pitch Black Theme With A High Contrast Syntax.
 
----
+## File Icons
 
-## IntelliJ IDEA
+Insyn File Icons And Insyn Colorful Icons.
 
-A native IntelliJ Platform plugin is available in [`intellij`](intellij). It brings matching themes to IntelliJ IDEA (2023.3 and newer):
+## Building For Visual Studio Code
 
-- **Insyn**
-- **Insyn V2**
-- **Insyn Colorful**
-- **Insyn Colorful V2**
+Requirements: Node.js
 
-### Build the IntelliJ Plugin
+Run The Package Command In The Root Folder:
 
-Run the PowerShell build script from the `intellij` directory:
+```powershell
+npx @vscode/vsce package
+```
+
+The Output File Is A Vsix File In The Root Folder.
+
+To Install In Visual Studio Code Open Extensions Click The Three Dots Menu And Select Install From VSIX.
+
+## Building For IntelliJ IDEA
+
+Requirements: Java 17 Or Newer And PowerShell
+
+Run The PowerShell Script In The IntelliJ Folder:
 
 ```powershell
 cd intellij
-Set-ExecutionPolicy -Scope Process Bypass
-.\build.ps1
+powershell -ExecutionPolicy Bypass -File .\build.ps1
 ```
 
-Or build with Gradle:
+Or Build Using Gradle:
 
 ```powershell
 cd intellij
 gradle buildPlugin
 ```
 
-The installable plugin ZIP will be generated in `intellij/build/distributions/`.
+The Output File Is A Zip File Inside build/distributions/.
 
-### Install in IntelliJ IDEA
+To Install In IntelliJ IDEA Open Settings Go To Plugins Click The Gear Icon And Select Install Plugin From Disk.
 
-1. Open **Settings | Plugins** (or **Preferences | Plugins** on macOS).
-2. Click the gear icon and select **Install Plugin from Disk...**.
-3. Select the generated ZIP from `intellij/build/distributions/`.
-4. Choose **Insyn**, **Insyn V2**, **Insyn Colorful**, or **Insyn Colorful V2** under **Settings | Appearance & Behavior | Appearance**.
-
----
-#9E9E9E
 ## License
 
 See [LICENSE](LICENSE).

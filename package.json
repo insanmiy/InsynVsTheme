@@ -2,7 +2,7 @@
   "name": "insyn-vs-theme",
   "displayName": "InsynVsTheme",
   "description": "A blue VS Code theme.",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "publisher": "insanmiy",
   "author": "Insanmiy",
   "license": "SEE LICENSE IN LICENSE",
@@ -41,6 +41,11 @@
   "activationEvents": [
     "onStartupFinished"
   ],
+  "scripts": {
+    "package": "vsce package",
+    "publish": "vsce publish",
+    "validate": "powershell ./scripts/validate-release.ps1"
+  },
   "contributes": {
     "commands": [
       {
