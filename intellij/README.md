@@ -2,7 +2,8 @@
 
 This directory contains the native IntelliJ Platform theme plugin. It includes:
 
-- **Insyn**, the restrained blue variant.
+- **Insyn**, the normal blue variant.
+- **Insyn V2**, the solid black with blue syntax.
 - **Insyn Colorful**, the brighter syntax variant.
 - **Insyn Colorful V2**, the solid black high contrast variant.
 - Matching editor, console, search, diff, diagnostics, tabs, tool windows, menus, and control colors.
@@ -36,4 +37,4 @@ The Gradle build downloads an IntelliJ IDEA development instance. The PowerShell
 1. Open **Settings | Plugins**.
 2. Use the gear menu and choose **Install Plugin from Disk**.
 3. Select `build/distributions/InsynVsTheme-intellij-<version>.zip`.
-4. Choose **Insyn**, **Insyn Colorful**, or **Insyn Colorful V2** under **Settings | Appearance & Behavior | Appearance**.
+4. Choose **Insyn**, **Insyn V2**, **Insyn Colorful**, or **Insyn Colorful V2** under **Settings | Appearance & Behavior | Appearance**.
